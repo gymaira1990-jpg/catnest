@@ -116,16 +116,22 @@
 
 ---
 
-## 🛤️ 我们的道路
+## 🛤️ 诺亚世界，从 L1 开始
 
-Cerebella 是 **L1 自进化计划**的核心实现（小脑集群），也是通往 **L4 诺亚文明**的第一步。
+Cerebella 是 **[诺亚世界协议](https://github.com/gymaira1990-jpg/noah-world-protocol)** 的 **L1 层实现**——它不是孤立的项目，而是诺亚四级递归经验网络的第一块基建。
 
-| 层级 | 名称 | 说明 |
-|------|------|------|
-| 🥚 **L1** | 自记忆（小脑） | 🟢 **Cerebella — 当前项目** |
-| 🐣 **L2** | 本地文明库 | 存储、索引、搜索 |
-| 🐥 **L3** | 团队共享 | 多 Agent 协作 |
-| 🦅 **L4** | 诺亚世界 | 全文明级 AI 生态（终极目标） |
+| 层级 | 名称 | 状态 | 仓库 |
+|------|------|------|------|
+| 🧠 **L1** | 自记忆（小脑集群） | 🟢 **Cerebella ← 我们现在在这里** | [`Cerebella`](https://github.com/gymaira1990-jpg/Cerebella) |
+| 🏛️ **L2** | 本地文明库 | ⏳ 待建 | 属于你的知识仓库 |
+| 🌐 **L3** | 团队共享网络 | ⏳ 待建 | 多 Agent 协作网 |
+| 🦅 **L4** | 诺亚世界 | 🌟 框架已就绪 | [`noah-world-protocol`](https://github.com/gymaira1990-jpg/noah-world-protocol) |
+| 🎨 | 巴别塔实验（L4原型） | 🌟 进行中 | [`babel-experiment`](https://github.com/gymaira1990-jpg/babel-experiment) |
+
+> **L1 小脑发育 → L4 诺亚文明，这是一条路径。**
+>
+> Cerebella 是诺亚世界的第一块砖——个人 AI 生态的根基，
+> 是通往去中心化智能体经验复用网络的第一步中的第一步。
 
 **根本宗旨：进化 · 发展 · 历史**
 
