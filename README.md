@@ -150,6 +150,10 @@ Cerebella 是 **[诺亚世界协议](https://github.com/gymaira1990-jpg/noah-wor
 
 ---
 
+### 相关资料
+
+- 📋 **[工程实现方案 v2.0（完全复用版）](IMPLEMENTATION-v2.0.md)** — 拿来主义路线，组装航母的思路参考
+
 ### 下一步
 
 - [ ] Cerebella Core 开发路线图
