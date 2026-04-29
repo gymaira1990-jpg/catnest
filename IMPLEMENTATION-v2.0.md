@@ -1,4 +1,14 @@
-# Cerebella 项目工程实现方案 v2.0 （完全复用版）
+# ⚠️ Cerebella 项目工程实现方案 v2.0 （完全复用版）
+
+> **此文档已被 v3.0 取代，仅作历史参考。**  
+> 新架构见 [ARCHITECTURE.md](ARCHITECTURE.md)，新路线见 [ROADMAP.md](ROADMAP.md)。  
+>
+> **v2.0 → v3.0 关键变化：**  
+> - ❌ Open WebUI → ✅ 60 行 HTML 极简界面（Docker 太重）  
+> - ❌ Dify 全栈 Docker → ✅ 轻量化 Python 编排（仅取编排逻辑）  
+> - ⚠️ Unsloth → ❌ V1 暂不集成（GPU 与游戏冲突）  
+> - 🆕 NPU 模式（零 CPU/GPU 占用）  
+> - 🆕 HLC 智能体中台（MCP 协议集成 Hermes Agent）
 
 > **组装航母，而非铸造零件。**
 >
