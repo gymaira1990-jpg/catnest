@@ -98,6 +98,8 @@ noah-world-protocol (顶层)
 
 ---
 
+**关联：** [诺亚世界协议](https://github.com/gymaira1990-jpg/noah-world-protocol) — 诺亚文明核心架构
+
 ## 📄 许可 · License
 
 ---
