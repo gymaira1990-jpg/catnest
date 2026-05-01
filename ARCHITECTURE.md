@@ -1,3 +1,19 @@
+# 🏛️ Cerebella 项目架构
+
+> **上级仓库：** [noah-core](https://github.com/gymaira1990-jpg/noah-core) — 诺亚核心
+> **下级仓库：** [cerebella-task-flow](https://github.com/gymaira1990-jpg/cerebella-task-flow) — 通用记忆工作流
+
+```
+noah-world-protocol (顶层)
+  └── noah-core (父级)
+       └── Cerebella ★ ← 当前仓库
+            └── cerebella-task-flow (子级)
+```
+
+完整架构文档见 [noah-world-protocol/ARCHITECTURE.md](https://github.com/gymaira1990-jpg/noah-world-protocol/blob/main/ARCHITECTURE.md)
+
+---
+
 # Cerebella 技术架构文档
 
 > 基于 Cerebella 工程实现白皮书 v3.0 + Hermes Local Core (HLC) v5.0  
