@@ -105,4 +105,6 @@ MIT
 *属于诺亚文明 / Part of the Noah Civilization ecosystem*
 ---
 
+---
+
 **关联：** [诺亚世界协议](https://github.com/gymaira1990-jpg/noah-world-protocol) — 诺亚文明核心架构
