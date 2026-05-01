@@ -1,0 +1,18 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# User card data — these are YOUR tasks, not the template
+/PROTOCOL/HOT-INDEX.md
+/PROTOCOL/WARM-INDEX.md
+/PROTOCOL/COLD-INDEX.md
+/PROTOCOL/ARCHIVE-INDEX.md
+/PROTOCOL/TAG-REGISTRY.md
+/cards/
