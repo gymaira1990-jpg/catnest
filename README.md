@@ -1,182 +1,84 @@
-# 🧠 Cerebella — 个人 AI 生态的「小脑发育」革命
+# 🧠 Cerebella — 个人AI生态的「小脑发育」革命
 
-> **不属于超级大脑，属于每一个独立个体的小脑集群。**  
-> *L1 自进化计划 · L4 诺亚文明第一步*
+**Cerebella — The "Cerebellum Development" Revolution for Personal AI Ecosystems**
 
-[![GitHub](https://img.shields.io/badge/GitHub-Cerebella-8B5CF6?style=flat-square&logo=github)](https://github.com/gymaira1990-jpg/Cerebella)
-[![Status](https://img.shields.io/badge/Status-Evolving-22c55e?style=flat-square)]()
-[![License](https://img.shields.io/badge/License-MIT-3b82f6?style=flat-square)]()
-
----
-
-## 🌌 我们为什么在这里
-
-主流 AI 陷入「大力出奇迹」的军备竞赛：堆参数、烧 GPU、昂贵的 API 调用、越用越贵的上下文窗口。
-
-但对于我们——普通的开发者、创造者、个人——这是一条不可持续的路。
-
-**个人 AI 的未来，不在一个全知全能的超级大脑，而在一群运行在本地、专精高效、能自我进化的小脑集群。**
-
-**Cerebella** 是一个**生态**。它把你的个人电脑，从被动的 API 客户端，转变为主动的、持续进化的 AI 执行中枢。
+> 不属于超级大脑，属于每一个独立个体的小脑集群。
+> Not a super brain. A cluster of cerebellums for every individual.
+>
+> L1 自进化计划 · L4 诺亚文明第一步
+> L1 Self-Evolution Plan · First Step Toward L4 Noah Civilization
 
 ---
 
-## 🧬 为什么是「小脑」而不是「大脑」？
+## 🌌 我们为什么在这里 · Why We Are Here
 
-大模型有「灾难性遗忘」——学新东西时可能忘掉旧的。我们的解法：**不把所有东西塞进一个脑子里。**
+主流AI陷入"大力出奇迹"的军备竞赛：堆参数、烧GPU、昂贵的API调用、越用越贵的上下文窗口。
+Mainstream AI is trapped in an arms race: bigger models, more GPUs, expensive APIs, rising context costs.
 
+对于我们——普通的开发者、创造者、个人——这是一条不可持续的路。
+For us — ordinary developers, creators, individuals — this path is unsustainable.
 
-| 组件 | 角色 | 硬件负载 |
+**个人AI的未来，不在一个全知全能的超级大脑，而在一群运行在本地、专精高效、能自我进化的小脑集群。**
+**The future of personal AI is not one omniscient super brain — it's a cluster of local, specialized, self-evolving cerebellums.**
+
+**Cerebella** 是一个**生态**。它把你的个人电脑，从被动的API客户端，转变为主动的、持续进化的AI执行中枢。
+**Cerebella** is an **ecosystem**. It transforms your PC from a passive API client into an active, continuously evolving AI execution hub.
+
+---
+
+## 🧬 为什么是「小脑」而不是「大脑」？ · Why Cerebellum, Not Brain?
+
+大模型有"灾难性遗忘"——学新东西时可能忘掉旧的。我们的解法：**不把所有东西塞进一个脑子里。**
+LLMs suffer from catastrophic forgetting. Our solution: **don't cram everything into one brain.**
+
+| 组件 Component | 角色 Role | 硬件负载 Hardware |
 |------|------|---------|
-| 🗣️ **管家脑 (0.5B)** | 意图路由 + 闲聊/工作分类 | 2 线程，0 显存 |
-| 🧠 **专家脑 (1.5B)** | 知识检索 + 技能内化 + 直接生成 | 2 线程，0 显存 |
-| 🔌 **MCP 插件层** | Hermes Agent 原生集成，零侵入 | — |
-
-> **NPU 模式（推荐）：推理零 CPU/GPU 占用，功耗 < 5W。**  
-> 支持 Intel Core Ultra (≥12 TOPS) / AMD Ryzen AI 300+ / Hailo-10H。
+| 🗣️ **管家脑 Butler Brain (0.5B)** | 意图路由 + 闲聊/工作分类 Intent routing + chat/work classification | 2 线程，0 显存 / 2 threads, 0 VRAM |
+| 🧠 **专家脑 Expert Brain (1.5B)** | 知识检索 + 技能内化 + 直接生成 Knowledge retrieval + skill internalization + generation | 2 线程，0 显存 / 2 threads, 0 VRAM |
+| 🔌 **MCP 插件层 Plugin Layer** | Hermes Agent 原生集成，零侵入 Native Hermes Agent integration | — |
 
 ---
 
-## 🔄 核心工作流
+## 🔄 核心工作流 · Core Workflow
 
 ```
-用户输入 → 管家脑（0.5B）意图分类
-            ├── 闲聊 → 本地拦截，不浪费 Token
-            └── 工作 → 专家脑（1.5B）检索 / 内化 / 生成
-                         ├── 阶段一：文件路径 + 摘要（未学过）
-                         ├── 阶段二：完整技能内容（已 LoRA 微调）
-                         └── 阶段三：零检索直接生成（参数内化）
-                                   → 技能收割（/harvest）
-                                   → 存入记忆
-                                   → 产生训练数据
-                                   → 下一轮 LoRA 微调
+用户输入 / User Input → 管家脑 Butler Brain (0.5B) intent classification
+  ├── 闲聊 / Chat → 本地拦截不浪费token / Local interception, no token waste
+  └── 工作 / Work → 专家脑 Expert Brain (1.5B) retrieval / internalization / generation
+                      ├── 阶段1: 文件路径+摘要 / Phase 1: file paths + summary
+                      ├── 阶段2: 完整技能 / Phase 2: full skill content
+                      └── 阶段3: 零检索生成 / Phase 3: zero-retrieval generation
+                                → 技能收割 / Harvest
+                                → 存入记忆 / Store to memory
+                                → 产生训练数据 / Generate training data
+                                → 下一轮微调 / Next LoRA fine-tuning
 ```
-
-> 详见 **[架构文档](ARCHITECTURE.md)** 和 **[路线图](ROADMAP.md)**
 
 ---
 
-## 📦 V1 黄金组合（纯拿来主义）
+## 📦 技术栈 · Tech Stack
 
-| 模块 | 选型 | 决策 |
+| 模块 Module | 选型 Choice | 说明 Note |
 |------|------|------|
-| **本地推理** | [Ollama](https://ollama.com) | ✅ 直接拿来用 |
-| **记忆仓库** | [SuperMemory](https://github.com/supermemoryai/supermemory) | ✅ 直接拿来用 |
-| **意图路由** | [ClawRouter](https://github.com/blockrun/clawrouter) | ✅ 直接拿来用（可用 50 行 Python 重写） |
-| **工作流编排** | Dify（轻量化改造） | ✅ 复用编排逻辑，剥离 Docker 前端 |
-| **交互界面** | 极简 HTML 单页（≤80 行） | 🔧 自研，放弃臃肿的 Open WebUI |
-
-> **2026 年关键决策**  
-> ❌ 弃用 Open WebUI（Docker 太重、功能过剩，60 行 HTML 替代）  
-> ⚠️ Unsloth 暂不集成（GPU 与游戏冲突，V1 手动触发训练）  
-> 🆕 NPU 模式新增（零 CPU/GPU 占用，低于 5W 推理功耗）
+| **本地推理 Local Inference** | Ollama | ✅ 直接拿来用 / Ready to use |
+| **记忆仓库 Memory Store** | SuperMemory | ✅ 直接拿来用 / Ready to use |
+| **意图路由 Intent Router** | ClawRouter | ✅ 或50行Python重写 / Or 50 lines of Python |
+| **工作流编排 Workflow** | Dify (lightweight) | ✅ 去Docker化 / No Docker required |
+| **交互界面 UI** | 极简HTML单页 Minimal HTML | 🔧 自研 / Custom built |
 
 ---
 
-## 🧠 四层记忆体系
+## 🔗 相关项目 · Related Projects
 
-| 层级 | 存储 | 速度 |
-|------|------|------|
-| 🔥 **热记忆** | ChromaDB 向量库 | 毫秒级 |
-| 🌡️ **温记忆** | 文件系统 + 索引 | 秒级 |
-| ❄️ **冷记忆** | 压缩归档 | 按需 |
-| 🗑️ **遗忘区** | 自动清理 | — |
-
-**知识不会丢失，也不会无限膨胀。**
+- **cerebella-task-flow** — 任务卡片管理方法论 / Task card management methodology
+- **noah-core** — 诺亚核心记忆架构 / Noah core memory architecture
+- **babel-experiment** — L4社会实验 / L4 social experiment
+- **noah-world-protocol** — 诺亚世界协议 / Noah World Protocol
 
 ---
 
-## 🏗️ 一键部署体验
+## 📄 许可 · License
 
-### CPU 模式（默认）
-```
-2-4 线程，0 显存占用。打 3A 大作时也在后台安静工作。
-```
+MIT
 
-### GPU 模式（高性能）
-```
-约 2.5-4.5 GB 显存，适合专用推理工作站。
-```
-
-### 🆕 NPU 模式（推荐）
-```
-零 CPU/GPU 占用，功耗 < 5W — Intel/AMD NPU 原生推理。
-首次启动自动检测硬件并推荐最优模式。
-```
-
-> 配置文件 `config.yaml` 中修改 `deployment_mode` 即可切换。
-
----
-
-## 🧩 三阶段技能内化
-
-Cerebella 最核心的能力——专家模型不是上线就能回答所有问题，而是随使用逐步成长：
-
-| 阶段 | 能力 | 触发条件 |
-|------|------|---------|
-| 1️⃣ **索引导航** | 返回文件路径+摘要 | 向量库有相关文档 |
-| 2️⃣ **技能调度** | LoRA 微调后返回完整内容 | 积累 ≥ 50 条训练数据 |
-| 3️⃣ **知识内化** | 零检索直接生成答案 | 同一技能命中 ≥ 30 次 |
-
-> 从「告诉我文件在哪」到「直接给我答案」——自动进化，无需手动管理。
-
----
-
-## 📊 Token 成本透明化
-
-```
-/cost today    — 当日报告：交互次数、节省 Token、实际花费
-/cost week     — 周报：趋势图 + 分类统计
-/cost all      — 累计总报告：净收益 = 累计节省 - 运行成本
-```
-
-**每一笔 API 调用的价值都清晰可见。**
-
----
-
-## 🔗 在诺亚体系中的位置
-
-Cerebella 是 **[诺亚世界协议](https://github.com/gymaira1990-jpg/noah-world-protocol)** 的 **L1 层实现**——四级递归经验网络的第一块基建。
-
-| 层级 | 名称 | 状态 |
-|------|------|------|
-| 🧠 **L1** | 自记忆（小脑集群） | 🟢 **Cerebella ← 我们在这里** |
-| 🏛️ **L2** | 本地文明库 | ⏳ 待建 |
-| 🌐 **L3** | 团队共享网络 | ⏳ 待建 |
-| 🦅 **L4** | 诺亚世界 | 🌟 框架已就绪 |
-
-- [`noah-world-protocol`](https://github.com/gymaira1990-jpg/noah-world-protocol) — 诺亚世界协议
-- [`babel-experiment`](https://github.com/gymaira1990-jpg/babel-experiment) — 巴别塔实验（L4 原型）
-
-> **L1 小脑发育 → L4 诺亚文明，这是一条路径。**
-
----
-
-## 📚 核心文档
-
-| 文档 | 说明 |
-|------|------|
-| **[架构文档](ARCHITECTURE.md)** | 完整技术架构：多脑总线 + 任务书系统 + HLC 集成 |
-| **[路线图](ROADMAP.md)** | Phase 1→2→3 分阶段实施路线 |
-| **[实现方案 v2.0](IMPLEMENTATION-v2.0.md)** | ⚠️ 被 v3.0 取代，仅作历史参考 |
-| **白皮书 v3.0** | 详见 vault（内部） |
-| **HLC v5.0 技术规格书** | 详见 vault（内部） |
-
----
-
-## 🚀 加入进化
-
-- ⭐ **Star** — 见证小脑集群的成长
-- 🐛 **Issue** — 提出想法或反馈
-- 🔀 **Fork & PR** — 一起建设
-
-**根本宗旨：进化 · 发展 · 历史**
-
-我们不与超级大脑争锋，我们为每一个独一无二的个体，打造专属于它的**小脑集群**。  
-越用越聪明，越用越省钱，越用越懂你。
-
----
-
-*Cerebella — 不属于超级大脑，属于每一个独立个体。*
-
-*Created by GCAT · 2026*
+*属于诺亚文明 / Part of the Noah Civilization ecosystem*
