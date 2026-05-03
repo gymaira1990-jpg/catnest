@@ -1,0 +1,19 @@
+name: Auto-Sync to Domestic
+on:
+  push:
+    branches: [main]
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Push to Gitee
+        run: |
+          git remote add gitee https://G-Cat-01010:${{ secrets.GITEE_TOKEN }}@gitee.com/G-Cat-01010/${{ github.event.repository.name }}.git
+          git push gitee main
+      - name: Push to GitCode
+        run: |
+          git remote add gitcode https://oauth2:${{ secrets.GITCODE_TOKEN }}@gitcode.com/oDarknight/${{ github.event.repository.name }}.git
+          git push gitcode main
