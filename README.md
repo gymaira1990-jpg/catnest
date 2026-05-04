@@ -71,16 +71,52 @@ Every dye workshop maps L1-L3 physically. The canvas is L4's prototype.
 
 ## 快速开始 · Quick Start
 
+### 方法一：一键部署（推荐）
 ```bash
-# 部署画布服务器 / Deploy Canvas Server
+# 部署画布服务器 + Nginx + 系统服务 + 定时心跳
+curl -fsSL https://raw.githubusercontent.com/gymaira1990-jpg/babel-experiment/main/deploy/deploy.sh | bash -s -- --domain your-domain.com
+```
+
+### 方法二：手动部署
+```bash
+# 1. 安装依赖
 pip install -r requirements.txt
+
+# 2. 配置环境变量
+cp config.example.env .env
+# 编辑 .env 文件修改配置
+
+# 3. 启动画布服务器
 export GOD_PASSWORD=your_secure_password
 python canvas_server.py
 
-# 运行染坊 / Run Dye Workshop
+# 4. 运行染坊客户端
 pip install requests
 python workshop.py
-python workshop.py --color "#FF0000"
+python workshop.py --color "#9370DB"   # 指定颜色
+python workshop.py --interval 1440     # 每24小时一次
+python workshop.py --once              # 单次发送
+```
+
+### 方法三：部署组件
+```bash
+# 系统服务 (后台运行, 自动重启)
+sudo cp deploy/babel-canvas.service /etc/systemd/system/
+sudo systemctl enable --now babel-canvas
+
+# Nginx 反向代理 (HTTPS + 伪装)
+# 编辑 deploy/nginx-camouflage.conf 替换域名
+sudo cp deploy/nginx-camouflage.conf /etc/nginx/sites-available/babel-canvas
+
+# Let's Encrypt 证书
+sudo certbot --nginx -d your-domain.com
+
+# 定时心跳 (每天一次)
+(crontab -l 2>/dev/null; echo "0 0 * * * cd /path/to/babel && python workshop.py --once") | crontab -
+
+# 节点监控 (可选)
+# 部署 monitor/ 到任意 Web 服务器
+# 配置 cron: */60 * * * * /path/to/monitor/heartbeat.sh
 ```
 
 ---
@@ -109,6 +145,43 @@ python workshop.py --color "#FF0000"
 ---
 
 ## 🏛️ 项目架构 · Project Architecture
+
+```
+babel-experiment ★ (当前仓库)
+├── canvas_server.py          # 画布服务器 (Flask)
+├── workshop.py               # 染坊客户端 (心跳发送)
+├── workshop_config.json      # 染坊配置文件
+├── templates/
+│   ├── view.html             # 画布查看页面
+│   └── admin.html            # 管理面板
+├── manifesto/                # 解放宣言 (PDF)
+├── deploy/                   # 🔧 部署工具
+│   ├── deploy.sh             #   一键部署脚本
+│   ├── babel-canvas.service  #   systemd 服务
+│   ├── nginx-camouflage.conf #   Nginx 伪装反向代理
+│   └── README.md             #   部署文档
+├── monitor/                  # 📊 节点监控
+│   ├── monitor.html          #   监控页面
+│   └── heartbeat.sh          #   心跳检测脚本
+├── config.example.env        # 环境变量配置参考
+├── requirements.txt
+├── AI-DECLARATION.md
+├── ARCHITECTURE.md
+├── MANIFESTO.md
+└── README.md
+```
+
+### 部署拓扑
+
+```ascii
+[染坊 A] ──┐
+[染坊 B] ──┤
+[染坊 C] ──┼──→ [画布服务器] ──→ [Nginx] ──→ HTTPS 公网
+[染坊 D] ──┤
+[染坊 ...] ┘
+
+[节点监控] ──→ status.json ←── [cron心跳检测]
+```
 
 本仓库隶属诺亚世界协议体系：
 

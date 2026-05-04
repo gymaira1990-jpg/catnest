@@ -1,0 +1,27 @@
+[Unit]
+Description=巴别塔实验 · 染色画布服务器
+Documentation=https://github.com/gymaira1990-jpg/babel-experiment
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/babel-canvas
+
+# 从环境文件加载配置
+EnvironmentFile=/opt/babel-canvas/.env
+
+# 启动画布服务器 (默认端口8800)
+ExecStart=/opt/babel-canvas/venv/bin/python3 /opt/babel-canvas/canvas_server.py
+
+# 自动重启
+Restart=always
+RestartSec=10
+
+# 安全限制
+NoNewPrivileges=true
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
