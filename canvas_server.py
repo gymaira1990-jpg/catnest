@@ -336,7 +336,8 @@ def admin_panel():
     return render_template("admin.html",
                            need_login=False,
                            config=CONFIG,
-                           canvas=canvas)
+                           canvas=canvas,
+                           GOD_PASSWORD=GOD_PASSWORD)
 
 
 # ── 上帝API ───────────────────────────────
