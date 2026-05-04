@@ -123,6 +123,24 @@ if not GOD_PASSWORD:
             print(f"🔑  上帝之手密码已写入 {_env_path}")
         except OSError:
             pass  # .env 不可写, 密码仅本次有效
+        
+        # 同时写入密码提示文件 (方便无AI agent的用户)
+        _hint_path = os.path.join(os.path.dirname(__file__), "ADMIN_PASSWORD.txt")
+        try:
+            with open(_hint_path, "w") as f:
+                f.write("=" * 50 + "\n")
+                f.write("  巴别塔实验 · 上帝之手管理面板密码\n")
+                f.write("  Babel Experiment · God Panel Password\n")
+                f.write("=" * 50 + "\n\n")
+                f.write(f"  密码: {GOD_PASSWORD}\n\n")
+                f.write(f"  管理面板: http://localhost:{os.environ.get('PORT', '5000')}/admin\n\n")
+                f.write(f"  重置密码: python canvas_server.py --reset-password\n\n")
+                f.write(f"  此文件可在部署后安全删除。\n")
+                f.write("=" * 50 + "\n")
+            print(f"📄  密码提示文件: {_hint_path}")
+        except OSError:
+            pass
+        
         print(f"🔑  GOD_PASSWORD={GOD_PASSWORD}")
         print(f"🔑  保存此密码以访问管理面板 /admin")
 else:

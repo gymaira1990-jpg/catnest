@@ -52,6 +52,7 @@ echo "[3/6] 配置画布服务器..."
 cd "$INSTALL_DIR"
 
 # 创建环境文件
+GOD_PASS=$(openssl rand -hex 16)
 cat > .env << EOF
 PORT=$CANVAS_PORT
 CANVAS_WIDTH=100
@@ -61,6 +62,7 @@ GROWTH_THRESHOLD=0.7
 GROWTH_SIZE=30
 AUTO_GROWTH=true
 FLASK_SECRET=$(openssl rand -hex 16)
+GOD_PASSWORD=$GOD_PASS
 EOF
 
 # 创建虚拟环境并安装依赖
@@ -110,5 +112,8 @@ else
     echo "║  访问: http://localhost:$CANVAS_PORT/view  ║"
 fi
 echo "║  管理: http://localhost:$CANVAS_PORT/admin  ║"
+echo "║  密码: $GOD_PASS                            ║"
+echo "║  配置: $INSTALL_DIR/.env                     ║"
+echo "║  重置: cd $INSTALL_DIR && source venv/bin/activate && python canvas_server.py --reset-password  ║"
 echo "║  文档: $REPO_URL    ║"
 echo "╚══════════════════════════════════════╝"
