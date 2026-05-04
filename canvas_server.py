@@ -37,7 +37,11 @@ CONFIG = {
     ],
 }
 
-GOD_PASSWORD = os.environ.get("GOD_PASSWORD", "admin")
+GOD_PASSWORD = os.environ.get("GOD_PASSWORD", "")
+if not GOD_PASSWORD:
+    print("⚠️  警告: GOD_PASSWORD 未设置, 上帝之手模块已禁用")
+    print("⚠️  设置环境变量 GOD_PASSWORD 以启用管理面板")
+    print("⚠️  WARNING: GOD_PASSWORD not set, God Hand module disabled")
 
 # ── 画布状态 ──────────────────────────────
 canvas = {
@@ -316,7 +320,9 @@ def view_canvas():
 # ── 路由：上帝面板 ───────────────────────
 @app.route("/admin", methods=["GET", "POST"])
 def admin_panel():
-    """上帝之手管理面板"""
+    """上帝之手管理面板（需设置GOD_PASSWORD环境变量）"""
+    if not GOD_PASSWORD:
+        return "<h1>上帝之手未启用</h1><p>设置 GOD_PASSWORD 环境变量以启用。</p>", 403
     if request.method == "POST":
         pwd = request.form.get("password", "")
         if pwd == GOD_PASSWORD:
