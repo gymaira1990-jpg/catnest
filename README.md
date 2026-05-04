@@ -74,7 +74,7 @@ Every dye workshop maps L1-L3 physically. The canvas is L4's prototype.
 ### 方法一：一键部署（推荐）
 ```bash
 # 部署画布服务器 + Nginx + 系统服务 + 定时心跳
-curl -fsSL https://raw.githubusercontent.com/gymaira1990-jpg/babel-experiment/main/deploy/deploy.sh | bash -s -- --domain your-domain.com
+curl -fsSL https://raw.githubusercontent.com/gymaira1990-jpg/babel-experiment/main/deploy/deploy.sh | bash -s your-domain.com
 ```
 
 ### 方法二：手动部署
@@ -82,13 +82,13 @@ curl -fsSL https://raw.githubusercontent.com/gymaira1990-jpg/babel-experiment/ma
 # 1. 安装依赖
 pip install -r requirements.txt
 
-# 2. 配置环境变量
+# 2. 配置环境变量（可选，不配置则自动生成）
 cp config.example.env .env
-# 编辑 .env 文件修改配置
 
 # 3. 启动画布服务器
-export GOD_PASSWORD=your_secure_password
 python canvas_server.py
+# → GOD_PASSWORD 自动生成, 写入 .env + ADMIN_PASSWORD.txt
+# → 管理面板: http://localhost:8800/admin
 
 # 4. 运行染坊客户端
 pip install requests
@@ -117,6 +117,20 @@ sudo certbot --nginx -d your-domain.com
 # 节点监控 (可选)
 # 部署 monitor/ 到任意 Web 服务器
 # 配置 cron: */60 * * * * /path/to/monitor/heartbeat.sh
+```
+
+### 上帝之手密码管理
+
+```bash
+# 查看密码
+python canvas_server.py --show-password
+
+# 重置密码
+python canvas_server.py --reset-password
+
+# 密码文件位置
+cat ADMIN_PASSWORD.txt    # 首次启动自动生成
+cat .env                  # GOD_PASSWORD=xxx
 ```
 
 ---
