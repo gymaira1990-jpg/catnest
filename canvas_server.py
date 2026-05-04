@@ -4,7 +4,67 @@ Babel Experiment: Dye Canvas — Canvas Server
 
 接收来自分布式染坊的心跳信号，在画布上生成随机像素，
 实现画布自动成长。画布是L4诺亚世界的物理雏形。
+
+CLI 命令:
+  python canvas_server.py                        启动画布服务器
+  python canvas_server.py --show-password        显示上帝之手密码
+  python canvas_server.py --reset-password       重置上帝之手密码
 """
+
+import sys
+
+# ── CLI 命令（在导入Flask之前执行）──
+if __name__ == "__main__" and len(sys.argv) > 1:
+    cmd = sys.argv[1]
+    if cmd == "--show-password" or cmd == "--reset-password":
+        import os, secrets
+        
+        _env_path = os.path.join(os.path.dirname(__file__), ".env")
+        
+        if cmd == "--show-password":
+            # 尝试从.env读取
+            pwd = os.environ.get("GOD_PASSWORD", "")
+            if not pwd:
+                try:
+                    with open(_env_path) as f:
+                        for line in f:
+                            if line.startswith("GOD_PASSWORD="):
+                                pwd = line.strip().split("=", 1)[1]
+                                break
+                except FileNotFoundError:
+                    pass
+            if pwd:
+                print(f"\n🔑  GOD_PASSWORD={pwd}")
+                print(f"📄  {_env_path}")
+            else:
+                print("\n⚠️  上帝之手未启用 (GOD_PASSWORD 未设置)")
+            sys.exit(0)
+        
+        if cmd == "--reset-password":
+            new_pass = secrets.token_hex(16)
+            try:
+                lines = []
+                found = False
+                try:
+                    with open(_env_path) as f:
+                        for line in f:
+                            if line.startswith("GOD_PASSWORD="):
+                                lines.append(f"GOD_PASSWORD={new_pass}\n")
+                                found = True
+                            else:
+                                lines.append(line)
+                except FileNotFoundError:
+                    pass
+                if not found:
+                    lines.append(f"GOD_PASSWORD={new_pass}\n")
+                with open(_env_path, "w") as f:
+                    f.writelines(lines)
+                print(f"✅  上帝之手密码已重置")
+                print(f"🔑  GOD_PASSWORD={new_pass}")
+                print(f"📄  已写入: {_env_path}")
+            except OSError as e:
+                print(f"❌  密码写入失败: {e}")
+            sys.exit(0)
 
 import os
 import json
@@ -37,11 +97,36 @@ CONFIG = {
     ],
 }
 
-GOD_PASSWORD = os.environ.get("GOD_PASSWORD", "")
+# ── 上帝之手密码 ──────────────────────────
+_GOD_PASSWORD_ENV = "GOD_PASSWORD"
+GOD_PASSWORD = os.environ.get(_GOD_PASSWORD_ENV, "")
+
 if not GOD_PASSWORD:
-    print("⚠️  警告: GOD_PASSWORD 未设置, 上帝之手模块已禁用")
-    print("⚠️  设置环境变量 GOD_PASSWORD 以启用管理面板")
-    print("⚠️  WARNING: GOD_PASSWORD not set, God Hand module disabled")
+    # 自动生成：检查.env文件
+    _env_path = os.path.join(os.path.dirname(__file__), ".env")
+    try:
+        with open(_env_path) as f:
+            for line in f:
+                if line.startswith("GOD_PASSWORD="):
+                    GOD_PASSWORD = line.strip().split("=", 1)[1]
+                    break
+    except FileNotFoundError:
+        pass
+    
+    if not GOD_PASSWORD:
+        # 生成新密码
+        import secrets
+        GOD_PASSWORD = secrets.token_hex(16)  # 32字符, 128位熵
+        try:
+            with open(_env_path, "a") as f:
+                f.write(f"\n# 上帝之手密码 (自动生成)\nGOD_PASSWORD={GOD_PASSWORD}\n")
+            print(f"🔑  上帝之手密码已写入 {_env_path}")
+        except OSError:
+            pass  # .env 不可写, 密码仅本次有效
+        print(f"🔑  GOD_PASSWORD={GOD_PASSWORD}")
+        print(f"🔑  保存此密码以访问管理面板 /admin")
+else:
+    print(f"🔑  上帝之手已启用 (GOD_PASSWORD 来自环境变量)")
 
 # ── 画布状态 ──────────────────────────────
 canvas = {
@@ -436,6 +521,7 @@ signal.signal(signal.SIGTERM, shutdown_handler)
 signal.signal(signal.SIGINT, shutdown_handler)
 
 if __name__ == "__main__":
+    # ── 启动画布服务器 ──
     port = int(os.environ.get("PORT", "5000"))
     debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
     print(f"🖼️  巴别塔实验 · 画布服务器启动")
