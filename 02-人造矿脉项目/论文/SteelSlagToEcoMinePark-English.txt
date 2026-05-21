@@ -1,0 +1,1183 @@
+From "Steel Slag Dump" to "Ecological Mine-Park": A Study
+    on Multi-Waste Synergistic Transformation and Carbon
+    Sequestration Integration Based on Accelerated Artificial
+                                      Diagenesis
+
+    From Steel Slag Dump to Ecological Mine-Park: A Study on Multi-Waste Co-
+Transformation and Carbon Sequestration Integration Based on Accelerated Artificial
+Diagenesis
+
+    Authors
+
+    [GCat+0101]
+
+    Abstract
+
+    China's iron and steel industry produces over 100 million tonnes of steel slag
+annually, with historical cumulative stockpiles exceeding 1.5 billion tonnes and a
+comprehensive utilization rate below 30%. The implementation of GB 175-2023
+"Common Portland Cement" has further narrowed the direct disposal pathways for steel
+slag in cement-based materials. Departing from the conventional engineering mindset of
+"rapid disposal," this paper proposes a paradigm shift across spatial and temporal
+scales—redefining steel slag landfills as an "artificial vein-ore" ecosystem, in which steel
+slag serves as the inorganic skeleton, organic waste as the biochemical engine, and
+functional microorganisms together with saprophagous insects act as synergistic drivers.
+For the first time, we systematically propose the theory of "Accelerated Artificial
+Diagenesis (AAD)." This theory compresses geological-scale natural diagenesis into an
+engineering scale of approximately five years through multi-factor synergistic
+enhancement, achieving the fundamental transformation of industrial solid waste into
+stable "artificial ore" via a three-stage ecological succession of "activation—
+stabilization—mineralization." The paper systematically elucidates the multi-waste
+synergistic symbiosis mechanism, the microbial mineralization-accelerated carbonation
+mechanism, the black soldier fly bioconversion mechanism, the mechanism of active
+utilization of steel slag spontaneous pulverization, and key biochemical coupling
+processes including organic acid–calcium ion release coupling, bioheat generation–self-
+heating maintenance coupling, in-situ CO₂ supply–carbonation coupling, and straw
+skeleton–permeability enhancement coupling. Based on the demonstration of technical
+feasibility, this paper presents a complete engineering design for a 10,000-tonne-scale
+proof-of-concept project, together with a full life-cycle carbon footprint analysis and a
+preliminary economic feasibility assessment. The core insight of this study is as follows:
+acknowledging the inherent limitations of engineering intervention, we turn to learning
+from nature, harnessing time and biological communities—the two most powerful forces
+at our disposal—to transform today's "environmental liabilities" into tomorrow's
+"resource assets," thereby exploring a novel paradigm for industrial civilization to
+transition toward a "geological-scale circular economy" in harmony with the Earth
+system.
+
+    Keywords: steel slag valorization; accelerated artificial diagenesis; microbially
+induced calcium carbonate precipitation (MICP); multi-waste synergy; black soldier fly;
+carbon sequestration; artificial vein-ore; ecological mine-park
+
+    1 Introduction
+
+
+1.1 Scale and Urgency of the Steel Slag Problem
+
+    China is the world's largest crude steel producer, with an annual crude steel output
+consistently maintained at the order of 1 billion tonnes, accounting for over 53% of
+global production (National Bureau of Statistics, 2024). Based on a generation rate of
+100–150 kg of steel slag per tonne of crude steel, China's annual steel slag production
+amounts to approximately 100–150 million tonnes. The mineralogical composition of
+steel slag is dominated by dicalcium silicate (C₂S), tricalcium silicate (C₃S), calcium
+ferrite (C₂F), and the RO phase (MgO-FeO-MnO solid solution). Its chemical
+composition (CaO 40–50%, SiO₂ 10–15%, Al₂O₃ 1–5%, FeO/Fe₂O₃ 10–30%, MgO 5–
+10%) bears a certain resemblance to that of cement clinker, theoretically offering
+potential as a supplementary cementitious material.
+    However, steel slag contains 2–10% free calcium oxide (f-CaO) and a certain amount
+of free magnesium oxide (f-MgO). The hydration reaction of f-CaO proceeds at an
+extremely slow rate, and the formation of Ca(OH)₂ through this hydration is accompanied
+by approximately 97% volume expansion, a process that can persist for decades or even
+centuries under natural conditions. When steel slag containing insufficiently slaked f-CaO
+is used as a building material, the risk of cracking due to delayed expansion poses a
+critical unsoundness problem. China's comprehensive utilization rate of steel slag has
+long remained below 30%, with historical cumulative stockpiles exceeding 1.5 billion
+tonnes (Zhang, 2026).
+
+    Applicability analysis of different types of steel slag. The mineralogical composition
+and f-CaO content of steel slag vary significantly depending on the steelmaking process,
+which directly affects the transformation cycle and process parameters within the
+"Jianggang Plan." Basic oxygen furnace (BOF) slag typically contains 3–8% f-CaO and a
+relatively high FeO content (15–25%), with a mineralogical assemblage dominated by
+C₂S, C₃S, C₂F, and the RO phase. BOF slag is an ideal feedstock for the "Jianggang
+Plan," as its moderate f-CaO content renders transformation within a five-year cycle
+highly feasible. Electric arc furnace (EAF) oxidizing slag has an f-CaO content
+comparable to that of BOF slag (3–8%) but a higher FeO content (20–35%) and greater
+density, requiring consideration of its high density during stockpile construction. EAF
+reducing slag can have an f-CaO content as high as 15% or more, along with a substantial
+proportion of C₃A (tricalcium aluminate), resulting in extremely high reactivity. For this
+type, it is recommended to extend the transformation cycle to 7–8 years, appropriately
+reduce the steel slag layer thickness (to 10–15 cm), increase the organic acid contact area,
+or adopt a layered alternating arrangement with other types of steel slag. Ladle furnace
+slag has an extremely high CaO content (50–60%), a high Al₂O₃ content (20–30%), and
+an f-CaO content reaching 10–20%. It is recommended to blend it with BOF slag at a
+proportion not exceeding 30%. Stainless steel slag has a high Cr content (2–5%), and
+special attention must be paid to the leaching risk of Cr(VI). Its inclusion in the routine
+material system of the "Jianggang Plan" is not recommended at present, pending the
+maturation of heavy metal stabilization technologies.
+    Synergistic effects of mixed steel slags. The blended system of high-calcium ladle
+furnace slag (CaO 50–60%) and BOF slag (CaO 40–45%) exhibits significant
+complementarity: the ladle furnace slag provides an abundant supply of Ca²⁺, while the
+BOF slag supplies Si⁴⁺ and Al³⁺, forming a CaO-SiO₂-Al₂O₃ system that more closely
+approximates the chemical composition of cement clinker and favors the formation of
+composite minerals such as calcium carboaluminate during the carbonation stage.
+Blending EAF reducing slag (high f-CaO) with BOF slag (moderate f-CaO) can
+effectively "dilute" the f-CaO concentration in the system, preventing temperature
+runaway and structural damage caused by excessively localized vigorous reactions. It is
+recommended that the proportion of high-f-CaO slag in the blended system not exceed 30%
+(by mass).
+
+    Effect of steel slag cooling method on reactivity. The cooling method employed for
+steel slag exerts a decisive influence on its mineralogical composition and reactivity.
+Water-quenched steel slag (rapid cooling), owing to its extremely high cooling rate
+(>100°C/s), prevents the crystallization of molten silicates, resulting in the formation of a
+substantial vitreous phase content (up to 30–50%). The Ca²⁺ and Si⁴⁺ sequestered within
+the vitreous phase exist in a high-energy state, conferring strong reactivity, while f-CaO
+is predominantly present in microcrystalline or amorphous form and dissolves more
+rapidly under organic acid conditions. Air-quenched steel slag (intermediate cooling) has
+a vitreous phase content (approximately 15–30%) that lies between that of water-
+quenched and naturally cooled slags, with a moderate degree of mineral crystallinity.
+Naturally cooled steel slag (slow cooling) exhibits high crystallinity, with f-CaO present
+as relatively large crystalline grains (up to tens of micrometers) often encased by minerals
+such as C₂S and C₃S, resulting in low reactivity. For the "Jianggang Plan," water-
+quenched steel slag is the most suitable primary feedstock, as its high vitreous phase
+content and finely dispersed f-CaO facilitate a shorter transformation cycle. Naturally
+cooled steel slag requires an appropriate extension of the activation time in Stage I (from
+2 years to 3 years), or compensation for its low reactivity by increasing the organic acid
+supply.
+1.2 Policy Environment: Structural Transition from Acquiescence to
+Tightening
+
+    The national standard GB 175-2023 "Common Portland Cement," released in 2023,
+imposes stricter limits on the types and proportions of admixtures permitted in cement,
+and steel slag has been explicitly excluded from the list of allowable admixtures for
+common Portland cement. This regulatory adjustment has effectively closed the
+traditional primary pathway for steel slag disposal, rendering the issue of steel slag
+valorization even more pressing.
+
+    Concurrently, the "Comprehensive Solid Waste Treatment Action Plan" (Guo Fa
+[2025] No. 14, referred to in the industry as the "Ten Measures for Solid Waste"), issued
+by the State Council in December 2025, explicitly sets binding targets by 2030, including:
+achieving a national annual comprehensive utilization volume of 4.5 billion tonnes for
+bulk industrial solid waste, effective control of historical stockpiles, and a substantial
+increase in the comprehensive utilization rate of newly generated smelting slag. This
+combination of policy "tightening on one front and opening on another" provides an
+unprecedented strategic demand and policy window for fundamental innovation in steel
+slag valorization technologies.
+
+
+1.3 Limitations Analysis of Mainstream Technical Pathways
+
+    Current steel slag treatment technologies can be categorized into three major routes:
+physical digestion, chemical carbonation, and surface modification.
+
+    The physical digestion route includes the hot-stewing method, the autoclave method,
+and the natural weathering method. The hot-stewing method utilizes the residual heat of
+steel slag by spraying water to generate steam, which accelerates the hydration of f-CaO
+under high temperature and high pressure, reducing the f-CaO content to below 3%.
+However, the penetration depth of high-pressure steam is limited, making it difficult to
+thoroughly digest f-CaO inside large slag blocks, and both energy consumption and
+equipment investment costs are relatively high. The natural weathering method requires
+open-air stockpiling of steel slag for 1-3 years; although the cost is low, it occupies
+extensive land area and the completeness of digestion is difficult to guarantee.
+
+    The chemical carbonation route utilizes CO₂ to react with f-CaO to form stable
+CaCO₃. However, under atmospheric pressure, the carbonation rate of f-CaO is severely
+limited by CO₂ mass transfer and the encapsulation effect of the product layer. Although
+pressurized carbonation can accelerate the reaction, the equipment investment and
+operating costs increase significantly.
+
+    The surface modification route wraps steel slag particles with organic/inorganic
+coatings to block moisture contact. Its effect is immediate, but the long-term reliability of
+coating durability over decades of building service life has yet to be fully validated.
+
+    The common limitation of the above technical routes lies in the attempt to "conquer"
+an intrinsically geological-scale chemical reaction process within an extremely short
+engineering timeframe using high energy input, resulting in varying degrees of a "cost-
+effectiveness-scale" impossible triangle.
+
+
+1.4 Paradigm Shift and Core Proposition of This Study
+
+    This paper proposes a fundamental epistemological shift: acknowledging the
+limitations of engineering means and transforming the logic from "rapid treatment" to
+"controlled transformation." Inspired by the wisdom of the traditional Chinese
+"Jianggang" (fermentation vat) long-term fermentation and the natural diagenetic
+processes in geology, this paper systematically proposes, for the first time, the theoretical
+framework of "Accelerated Artificial Diagenesis" (AAD).
+
+    The core proposition of this theory is: redefining the steel slag landfill site as a
+human-designed and controlled giant surface weathering-sedimentation reactor. With a
+complete cycle of 5 years, through the synergistic coexistence of multi-source wastes and
+the introduction of functional biological communities, the thorough mineralization and
+transformation of unstable components in steel slag is systematically completed under
+controlled conditions. Over time, the stockpile site successively evolves into a "natural
+ecological park" and an "artificial ore park," ultimately achieving a complete
+transformation from an "environmental burden" to a "resource reserve."
+
+    2 Theoretical Framework: Scientific Basis and System Design of the Accelerated
+Artificial Diagenesis Theory
+
+
+2.1 Accelerated Artificial Diagenesis Theory
+
+    In geology, "diagenesis" refers to all physical, chemical, and biological changes that
+sediments undergo after deposition and before metamorphism, ultimately transforming
+loose sediments into consolidated sedimentary rocks. The key processes of diagenesis
+include compaction and dewatering, dissolution and reprecipitation, mineral phase
+transformation, microbial activity, and the formation of carbonate cements. The timescale
+of natural diagenesis is typically on the order of millions to tens of millions of years.
+
+    The Accelerated Artificial Diagenesis (AAD) theory proposed in this paper refers to
+the engineering intensification of the driving forces of diagenesis (water, CO₂,
+microorganisms) under human intervention, and the engineering design of its spatial
+(stockpile) and temporal (5-year cycle) dimensions, thereby compressing the diagenetic
+process that requires geological epochs in nature to an engineering-accessible timescale.
+
+    The core strategy of the AAD theory is "multi-factor synergistic intensification":
+simultaneously applying three types of driving forces within the stockpile — physical
+intensification (leachate recirculation, pulsed spraying, particle size gradation
+optimization), chemical intensification (organic acid-promoted f-CaO dissolution, CO₂
+injection), and biological intensification (inoculation with functional microbial consortia
+and insects) — to generate synergistic amplification effects, with the overall
+transformation efficiency far exceeding the simple superposition of individual approaches.
+
+    Systematic comparison between artificial diagenesis and natural diagenesis. To
+clearly reveal the essential characteristics of the AAD theory, Table 1 provides a
+systematic comparison across dimensions including driving forces, timescale,
+temperature conditions, CO₂ supply, microbial action, diagenetic products, and product
+homogeneity.
+    Table 1 Systematic comparison between natural diagenesis and accelerated artificial
+diagenesis (AAD)
+
+    This table clearly reveals the engineering essence of AAD: through multi-factor
+synergistic intensification, the driving forces of natural diagenesis are multiplicatively
+enhanced, thereby achieving a leapfrog compression of the timescale. This theory
+constitutes the scientific core of the entire "Jianggang Plan," and all subsequent technical
+designs are developed based on this foundation.
+
+
+2.2 Multi-Source Waste Synergistic Symbiosis System
+
+    The greatest innovation of the "Jianggang Plan" that distinguishes it from existing
+solid waste treatment technologies lies in breaking the industry convention of "classified
+treatment" and proactively constructing a synergistic symbiosis system of multi-source
+wastes.
+
+
+2.2.1 Material Components and Functional Division
+
+    The main material components of the system and their core functions are shown in
+Table 2.
+
+    Table 2 Material components and functional division of the multi-source waste
+synergistic symbiosis system
+
+
+2.2.2 Key Chemical-Biological Coupling Mechanisms of Multi-Source
+Synergy
+
+    The synergistic transformation of the above materials within the "Jianggang"
+depends on the following key coupling processes:
+
+    (a) Organic acid neutralization-calcium ion release coupling
+
+    Organic wastes produce large amounts of organic acids (acetic acid, propionic acid,
+butyric acid, lactic acid, etc.) during the microbial anaerobic hydrolysis-acidification
+stage, reducing the local environmental pH to 4-6. The reaction of these organic acids
+with f-CaO in steel slag is shown in Equation (1):
+
+    (1)
+
+    This reaction has three synergistic benefits: the organic acid "in-situ etches" the inert
+hydration layer on the f-CaO surface, exposing fresh reaction interfaces; the generated
+calcium acetate has extremely high solubility (approximately 34.7 g/100 mL H₂O, 20°C),
+effectively activating Ca²⁺ into the solution phase; and the Ca²⁺ in the solution phase is in
+a highly reactive state, readily combining with CO₃²⁻ in the system to form CaCO₃
+precipitates, thereby completing the full "dissolution-migration-mineralization"
+transformation chain.
+
+    (b) Active utilization mechanism of steel slag self-pulverization
+
+    The hydration expansion of f-CaO in steel slag is often considered a detrimental
+phenomenon, but in the AAD system, it can be actively converted into an advantage.
+When moisture penetrates into the interior of steel slag blocks through pores, the
+localized expansion stress (up to tens of MPa) generated by the hydration of f-CaO to
+form Ca(OH)₂ induces the self-pulverization of steel slag — large slag blocks disintegrate
+into fine particles (particle size can decrease from tens of centimeters to a few
+millimeters). This process greatly increases the specific surface area of the steel slag (by
+2-3 orders of magnitude), significantly enhancing the mass transfer efficiency of
+subsequent organic acid dissolution and CO₂ carbonation reactions. In the early stage of
+the activation period, through reasonable water spraying scheduling (under stockpile
+temperature conditions of 50-60°C), this transformation from "detrimental expansion" to
+"beneficial pulverization" can be initiated and accelerated.
+
+    (c) Biological heat generation-self-heating maintenance coupling
+
+    Organic wastes release large amounts of metabolic heat during aerobic degradation.
+In a composting system, the internal temperature during the mesophilic-thermophilic
+phase can reach 50-75°C. According to the Arrhenius equation, the chemical reaction rate
+constant is exponentially related to temperature (k = A·e⁻ᴱᵃ/ᴿᵀ). The self-heating of the
+stockpile raises the reaction temperature from ambient temperature (approximately 20°C)
+to 55-65°C, which can increase the f-CaO carbonation rate by 5-10 times and the
+hydration reaction rate by 10-20 times. This "self-heating-driven" effect enables a
+substantial increase in reaction rates within the system without the need for external
+energy input.
+
+    (d) In-situ CO₂ supply-carbonation coupling
+
+    During the degradation of organic wastes, aerobic respiration produces CO₂
+(approximately 0.5-1.0 kg CO₂/kg organic matter dry weight), and the acidogenic phase
+prior to anaerobic methanogenesis also releases large amounts of CO₂. Based on the
+release of approximately 500 kg CO₂ per ton of organic waste, a ten-thousand-ton
+stockpile can generate several thousand tons of CO₂ annually. This portion of CO₂ is
+generated in situ within the stockpile and undergoes carbonation reactions upon
+contacting Ca²⁺ in the solution phase through pore diffusion (Equation 2):
+
+    (2)
+
+    The greatest advantage of in-situ CO₂ supply is that the reaction occurs in the micro-
+to-millimeter-scale pore space within the stockpile, overcoming the mass transfer
+bottleneck of CO₂ diffusion from the bulk gas phase to the interior of solid particles that
+plagues external pressurized carbonation processes.
+
+    (e) Straw skeleton-ventilation enhancement coupling
+
+    The fibrous porous structure of straw (cellulose content approximately 35-45%,
+hemicellulose approximately 25-35%, lignin approximately 15-20%) makes it a
+recalcitrant organic material. In the stockpile, the physical structure of straw creates
+interconnected macro-pore networks (pore diameter 0.1-10 mm), providing efficient mass
+transfer channels for the inward diffusion of O₂ and the outward migration of CO₂,
+thereby avoiding the issues of hindered gas diffusion and localized anaerobic dead zones
+that arise from the tight packing of fine particles in pure steel slag stockpiles.
+2.2.3 Microscopic Mechanisms of Microbe-Mineral Interfacial
+Interactions
+
+    Microbial transformation of steel slag minerals does not occur throughout the entire
+solution but is highly concentrated at the mineral-biofilm interface. Microorganisms
+colonize the mineral surface and create localized reaction microenvironments through the
+following mechanisms: secreting extracellular polymeric substances (EPS) to form
+biofilms, constructing a reaction layer approximately 10-100 μm thick on the mineral
+surface; within the biofilm, the concentration of organic acids produced by microbial
+metabolism can be 1-3 orders of magnitude higher than that in the bulk solution, forming
+a microzone acidic environment that efficiently drives mineral dissolution;
+microorganisms actively take up essential elements such as Ca²⁺ and Mg²⁺ from the
+mineral surface through active transport, and induce mineral precipitation on the cell wall
+or EPS template through metabolic activity.
+
+    The important implication of this microscopic mechanism for stockpile design is that
+microorganisms need full contact with the steel slag mineral surface to achieve maximum
+transformation efficiency. Therefore, the bacterial suspension should uniformly penetrate
+various parts of the steel slag layer, rather than remaining solely in the pore solution of
+the stockpile.
+
+
+2.3 Biological Synergy: Microbial Mineralization and Insect
+Bioconversion
+
+    The core design of the Jianggang (fermentation vat) Plan at the biological community
+level is the establishment of a three-tier synergistic transformation system comprising
+"microbes—insects—plants."
+
+
+2.3.1 Functional Microbial Communities
+
+    Microorganisms serve as the "biochemical engine" of the AAD system, with their
+core functions encompassing organic matter degradation, organic acid production, and
+calcium carbonate mineralization. The functional microbial community designed in this
+concept includes the following key groups:
+
+    Hydrolytic acidogenic bacteria (anaerobic/facultative anaerobic): Responsible for
+decomposing complex organic matter such as cellulose, proteins, and lipids into small-
+molecule organic acids, amino acids, and monosaccharides. This group primarily includes
+cellulose-degrading bacteria (Clostridium spp., Ruminococcus spp.) and acidogenic
+bacteria (Lactobacillus spp., Propionibacterium spp.). These bacterial groups have been
+widely applied in natural composting and biogas fermentation systems; upon inoculation,
+they can initiate the acidification process of the pile body within 2–3 days.
+
+    Urea-hydrolyzing bacteria (facultative): Catalyze urea hydrolysis via urease secretion
+to produce CO₃²⁻ and NH₄⁺ (Eq. 3), promoting CaCO₃ precipitation in an alkaline
+microenvironment.
+
+    (3)
+
+    Sporosarcina pasteurii is the flagship strain in MICP technology, exhibiting urease
+activity of 1–10 mmol urea/min/mg protein and capable of inducing significant CaCO₃
+precipitation within hours to days. Previous studies have demonstrated that this strain can
+form a dense calcium carbonate shell on the surface of steel slag, effectively
+encapsulating f-CaO particles and preventing their subsequent hydration.
+
+    Carbonic anhydrase (CA)-producing bacteria: Catalyze the CO₂ hydration reaction
+efficiently via CA enzyme secretion (Eq. 4), increasing the conversion rate by 10⁴–10⁶
+fold.
+
+    (4)
+
+    Research by Professor Qian Chunxiang's team has demonstrated that suspended CA-
+producing microorganisms can reduce the time required to achieve 10% carbon
+sequestration in steel slag to one-fifth of that needed by direct carbonation, revealing the
+essence of microbial enhancement of carbonation kinetics through multiple mechanisms
+including promoting CO₂ dissociation and diffusion within the liquid film and
+accelerating the conversion of silicate minerals such as C₂S.
+    Sulfate-reducing bacteria (SRB): Can utilize sulfate-containing minerals such as
+gypsum to generate S²⁻, inducing the precipitation of stable minerals such as vivianite
+(Fe₃(PO₄)₂·8H₂O) in phosphorus-rich environments, while simultaneously releasing OH⁻
+to elevate pH and initiate carbonate mineralization. When the phosphorus content of steel
+slag is relatively high, SRB can serve as an important supplementary functional bacterial
+group.
+
+    Microbial community succession and functional redundancy. The microbial
+community within the pile body will undergo a predictable ecological succession: Stage 1
+(activation period), characterized by abundant organic matter and large pH fluctuations,
+during which fast-growing r-strategists (lactic acid bacteria, yeasts, etc.) dominate; Stage
+2 (stabilization period), during which organic matter is progressively consumed, pH
+stabilizes at 8–10, and slow-growing K-strategists (mineralizing bacteria such as
+Sporosarcina pasteurii) establish dominance; Stage 3 (mineralization period),
+characterized by nutrient depletion, during which oligotrophic bacteria and endospore-
+forming bacteria become the dominant community members. To ensure functional
+redundancy, a multi-strain mixed inoculation strategy is adopted—urease-producing
+bacteria can be simultaneously inoculated with Sporosarcina pasteurii, Bacillus
+sphaericus, and Bacillus megaterium, such that if one strain declines, the others can
+substitute for its function.
+
+    Microbial community monitoring and early warning. It is recommended to establish
+a microbial community monitoring and early warning system based on 16S rRNA high-
+throughput sequencing: samples should be collected from different depths of the pile
+body every 3 months to analyze changes in community composition and diversity. When
+the relative abundance of functional bacterial groups declines by more than 50% from the
+peak value, or when the Shannon diversity index decreases by more than 30% from the
+baseline, an early warning should be triggered and supplementary inoculation procedures
+initiated.
+
+
+2.3.2 Black Soldier Fly Bioconversion System
+    The black soldier fly (Hermetia illucens L.), belonging to the family Stratiomyidae of
+the order Diptera, has emerged in recent years as the most widely studied saprophagous
+insect species in the field of organic solid waste bioconversion. Its larvae feed on organic
+waste and possess outstanding advantages including a broad dietary range, high
+conversion efficiency, rapid growth rate, and non-vector status for disease transmission.
+
+    Core conversion capacity. Under conditions of 25–30°C, black soldier fly larvae
+require approximately 25 days from hatching to prepupal stage; one ton of larvae can
+process 4 tons of livestock manure or 2.5 tons of food waste within a rearing cycle of
+approximately 40 days. The larval body contains 35–45% crude protein (dry weight) and
+25–35% crude fat (dry weight), while the frass is rich in humic acid and nitrogen,
+phosphorus, and potassium. The recommended optimal inoculation density is 5,000–
+10,000 individuals/m² (calculated based on the surface area of the organic mixture layer);
+below the lower limit, conversion is insufficient, while above the upper limit,
+intraspecific competition is triggered. In large-scale operations, a batch inoculation
+strategy can be adopted: initial inoculation at 5,000 individuals/m², followed by
+supplementation with 2,000–3,000 individuals/m² after 2 weeks depending on
+consumption status.
+
+    Synergistic bioconversion by black soldier fly and microorganisms. The larval gut
+harbors a rich microbial community (Proteobacteria, Bacteroidetes, Firmicutes, etc.),
+which is excreted into the pile substrate during feeding, assisting in the decomposition of
+recalcitrant organic matter such as cellulose, and secreting urease and carbonic anhydrase
+to indirectly promote CaCO₃ precipitation. The feeding and burrowing activities of larvae
+significantly alter the microbial community structure of the pile body: by ingesting
+organic matter, they pulverize large material fragments into fine particles, substantially
+increasing the surface area available to microorganisms (by 10–100 fold); the micro-
+channels created within the pile body improve oxygen diffusion and gas exchange; and
+the excreted frass, rich in readily degradable organic matter and active microorganisms,
+forms distributed mineralization "hotspots" within the pile.
+
+    Potential of other insect species. In addition to the black soldier fly, larvae of the
+housefly (Musca domestica) can convert livestock manure within 4–5 days, with a protein
+content as high as 50–60%; the yellow mealworm (Tenebrio molitor) can feed on
+materials with higher cellulose content such as straw, and its gut microbiota possess
+unique lignin-degrading capabilities; larvae of the white-spotted flower chafer (Protaetia
+brevitarsis) can feed on mature compost and straw, producing high-quality frass rich in
+organic matter and trace elements. In the future, suitable combinations of insect species
+can be flexibly selected based on material characteristics and climatic conditions of
+different regions.
+
+
+2.4 Five-Year Ecological Succession Model
+
+    The core temporal framework of the Jianggang Plan is a complete cycle of 5 years,
+during which the pile body undergoes three distinct ecological succession stages. Table 3
+systematically aligns these ecological succession stages with the corresponding phases of
+geological diagenesis.
+
+    Table 3 Correspondence between the five-year ecological succession model of the
+Jianggang Plan and diagenetic stages
+
+    Porosity evolution patterns. In Stage 1, porosity is relatively high (35–45%),
+dominated by macropores formed by organic matter decomposition; in Stage 2, porosity
+gradually decreases (25–35%), as fine CaCO₃ crystals begin to precipitate within the
+pores; in Stage 3, porosity further declines (20–30%), as macropores are filled with
+CaCO₃ and C-S-H gel, and connected porosity decreases significantly—a key factor in
+the strength enhancement of "artificial ore." Calcite is expected to be the dominant
+cementation crystal phase (thermodynamically most stable), with C-S-H gel serving as a
+secondary cementitious phase filling intergranular pores. The compressive strength of ore
+dominated by calcite pore-filling cementation can reach 10–25 MPa.
+
+    3 Technical Feasibility Assessment
+
+
+3.1 Research Progress on MICP-Accelerated Steel Slag Carbonation
+
+    A study by Professor Qian Chunxiang's team at Southeast University, published in
+Engineering (the journal of the Chinese Academy of Engineering), combined microbial
+technology with a rotary process, using carbonic anhydrase-producing microorganisms to
+accelerate CO₂ fixation from cement kiln exhaust gas in steel slag powder, achieving a
+CO₂ fixation rate more than double that of the control. Further research by the same team
+employed suspended-state MICP technology, reducing the time required to achieve 10%
+carbon sequestration to one-fifth of that needed by direct carbonation, and elucidated the
+multiple acceleration mechanisms. When the carbon sequestration rate exceeds 8% and
+the specific surface area is no less than 300 m²/kg, the volume stability issue of steel slag
+can be effectively resolved (Qian et al., 2025).
+
+    Regarding direct improvement of volume stability, Sporosarcina pasteurii has been
+demonstrated to achieve synchronous CO₂ mineralization sequestration and f-CaO
+removal under ambient conditions (30°C, atmospheric pressure). A multi-microorganism
+(Sporosarcina pasteurii + yeast + carbonic anhydrase-producing bacteria) synergistic pre-
+treatment method for steel slag has also been proposed. A green modification route
+combining carbonic anhydrase-mediated microbial mineralization with boiling water pre-
+treatment has been demonstrated at both macro- and micro-scales to effectively improve
+the volume stability of steel slag fine aggregates.
+
+
+3.2 Research on Synergistic Treatment of Steel Slag and Organic Waste
+
+    Previous studies have successfully used steel slag as the primary cementitious
+material, incorporating rice straw fibers to prepare foamed concrete, demonstrating the
+feasibility of synergistic resource utilization of agricultural and industrial by-products. A
+patented technology (CN120647217A) for preparing asphalt concrete using modified
+steel slag combined with iron tailings and corn straw has confirmed the technical pathway
+for synergistic utilization of effective components from multiple waste streams.
+
+    In the field of environmental remediation, composite materials of steel slag and rice
+straw biochar have exhibited excellent performance in the immobilization of heavy
+metals (e.g., arsenic) in soil. Field trials have demonstrated that combined application of
+steel slag and green waste compost significantly promotes the growth of durum wheat,
+improves soil health, and enhances drought resistance (2025).
+    At the industrial demonstration level, the CCUS technology industrial demonstration
+project at HBIS Group Tangsteel New Area achieved, for the first time at industrial scale,
+the integration of two technical routes: "blast furnace gas carbon capture coupled with
+microbial carbon fixation for protein production" and "steel slag flue gas carbonation for
+resource utilization," producing high-quality building materials with a carbon
+sequestration capacity of 20% and compressive strength exceeding 30 MPa, which
+received the "CarbXRock" trademark authorization (HBIS Group, 2026).
+
+
+3.3 Large-Scale Black Soldier Fly Bioconversion Practice
+
+    In China, the industry-scale treatment of organic waste using the black soldier fly has
+become quite mature. The Yantian District of Shenzhen has established the nation's first
+full-scale black soldier fly food waste treatment demonstration zone, cumulatively
+processing over 55,000 tons of food waste, with an estimated carbon emission reduction
+of 326 tons of CO₂ equivalent in 2025. The research team led by Professor Huang
+Yongping at Shanghai Jiao Tong University has built a black soldier fly pilot line with a
+daily processing capacity of 4 tons of food waste on campus. A black soldier fly project
+in Fuyang, Hangzhou, with a daily processing capacity of 30 tons of organic waste, has
+obtained commercial financial institution loan support. These cases fully demonstrate the
+engineering feasibility and economic sustainability of black soldier fly technology in the
+field of organic waste treatment.
+
+
+3.4 Remanufacturing Pathways for Artificial Ore
+
+    The end product of the AAD process—"artificial ore"—is dominated by CaCO₃ and
+C-S-H gel as its primary mineral phases and is completely stabilized in nature. Its
+utilization as building materials can follow four technical pathways depending on the
+target product:
+
+    Autoclaved products pathway. The artificial ore is crushed, mixed with appropriate
+amounts of quicklime and gypsum in a specified ratio, and reacted in an autoclave
+(approximately 180–200°C, approximately 1.0–1.5 MPa saturated steam pressure) for 6–
+10 hours to produce autoclaved lime-sand bricks or aerated concrete blocks with
+tobermorite (5CaO·6SiO₂·5H₂O) as the main hydration product, ensuring fully
+guaranteed volume stability.
+
+    Cement clinker pathway. The chemical composition of artificial ore (CaO-SiO₂-
+Al₂O₃-Fe₂O₃) corresponds to a mixed mineral of "artificial limestone + clay." After
+crushing and homogenization, it is fed into a rotary kiln and calcined at 1300–1450°C,
+where the components recombine to form new cement clinker dominated by C₃S and C₂S.
+This pathway is essentially a "secondary calcination and remanufacturing" of steel slag
+after homogenization and stabilization in the AAD stage, thoroughly eliminating volume
+stability risks at the raw material level.
+
+    Carbonated building materials pathway. The artificial ore is crushed, pressed into
+shape, and cured in a CO₂ atmosphere (concentration > 20%) for several hours to days.
+Residual C-S-H gel reacts with CO₂ to form CaCO₃ and silica gel (SiO₂·nH₂O); the silica
+gel fills pores while CaCO₃ serves as a cementitious phase, forming a dense calcium
+carbonate-silica gel composite matrix. Steel mills' blast furnace gas (CO₂ content 20–25%)
+or cement plant kiln exhaust gas (CO₂ content 15–30%) can be used as CO₂ sources. The
+HBIS Group Tangsteel New Area CCUS project has already demonstrated the full
+industrial feasibility of this route.
+
+    Concrete aggregate pathway. After 5 years of mineralization stabilization, the f-CaO
+content of artificial ore drops below 1%, and its volume stability fully meets the
+requirements for concrete aggregates. Its apparent density is approximately 2.4–2.8 g/cm³,
+water absorption rate approximately 3–6%, and crushing index approximately 10–15%,
+meeting the Class II or Class III aggregate standards of GB/T 14685. Compared with
+natural crushed stone, artificial ore aggregates possess unique advantages including a
+rough porous surface, strong mechanical interlocking force with cement paste, a dense
+interfacial transition zone, and residual CaCO₃ reactivity that can continuously participate
+in carbonation-based micro-repair during the service life of concrete. With China's annual
+concrete production exceeding 3 billion cubic meters and natural sand and gravel
+aggregate resources becoming increasingly depleted, the potential market space for
+artificial ore as a substitute aggregate is enormous.
+    Artificial ore reactivity evaluation methods. A dedicated multi-index evaluation
+system needs to be established: calcium carbonate content (TGA method, 600–850°C
+weight loss attributed to CaCO₃ decomposition), residual f-CaO content (ethylene glycol-
+ethanol method, GB/T 176), soluble CaO content (ammonium acetate solution extraction),
+strength activity index (mixed with reference cement at a 3:7 ratio, 28-day compressive
+strength ratio), etc.
+
+    A techno-economic comparison of the four pathways is presented in Table 4.
+
+    Table 4 Techno-economic comparison of the four remanufacturing pathways for
+artificial ore
+
+    Standardization work plan: Years 1–2: complete the classification and nomenclature
+specification for "artificial ore" (group standard); Years 3–4: complete the product quality
+standard (upgrade from group standard to industry standard); Years 5–6: complete the
+application technical specifications for autoclaved products/carbonated building materials;
+Year 7 and beyond: initiate the national standard declaration process.
+
+    4 Preliminary Design of the Proof-of-Concept Engineering System
+
+
+4.1 Site Selection and Scale
+
+    Site Selection Criteria: The site shall be established on existing steel slag yards or
+idle industrial lands associated with iron and steel enterprises, with priority given to the
+utilization of abandoned industrial sites and degraded land. The site should be adjacent to
+urban kitchen waste treatment plants and agricultural cultivation areas (to facilitate straw
+collection and transport). The total land area is approximately 2–3 ha (30–45 mu).
+
+    Treatment Capacity: Total processing volume is approximately 10,000 m³, of which
+steel slag accounts for about 60% (6,000 m³, ~12,000 tons) and organic waste (straw,
+kitchen waste, livestock manure, and biochar) accounts for approximately 40%. The
+annual treatment capacity is approximately 2,400 tons of steel slag and 1,600 tons of
+organic waste.
+4.2 Heap Construction and Layer Sequence Design
+
+    A "sandwich" layered sequence structure is adopted, arranged from bottom to top as
+follows:
+
+    (a) Foundation layer (30 cm): A composite anti-seepage system comprising
+compacted clay + a double-layer HDPE geomembrane (2 mm) + a geosynthetic clay liner
+(GCL). An electrically conductive leak detection grid is installed between the two
+geomembrane layers; in the event of a leak, the resistance of the detection layer changes,
+enabling immediate localization of the leak point and initiation of emergency response
+measures.
+
+    (b) Drainage layer (20 cm): Composed of gravel and a network of corrugated
+perforated pipes, serving the dual functions of leachate collection and recirculation, as
+well as gas (CO₂, CH₄) collection.
+
+    (c) Main reaction layer (2–3 m): Materials are placed in alternating succession as
+"steel slag layer (20 cm) → organic mixture layer (straw, kitchen waste, manure; 15 cm)
+→ steel slag layer → biochar layer (5 cm)," forming 5–8 cyclic units. Water-quenched
+converter steel slag is preferentially selected. The steel slag is classified by particle size:
+coarse slag (20–40 mm) for the bottom layer, fine slag (5–15 mm) for the middle layer,
+and powdered slag (<5 mm) for the top layer, thereby utilizing inter-particle pore size
+differences to control reaction rate zonation. Black soldier fly larvae are inoculated into
+the organic mixture layers (initial rate: 5,000 individuals/m², supplemented with 2,000–
+3,000 individuals/m² after two weeks).
+
+    After every 2–3 material layers are placed, moderate compaction is applied using a
+light vibratory roller (static pressure 0.2–0.5 MPa) to simulate the overburden sediment
+pressure effect, promoting tight inter-particle contact among steel slag particles while
+avoiding excessive compaction that would impede gas diffusion.
+
+    (d) Surface cover layer (20 cm): Composed of steel slag powder mixed with a small
+amount of imported topsoil, amended with activated carbon or zeolite (5 wt%) to enhance
+deodorization. Alkali-tolerant pioneer plant species such as Suaeda glauca and Cynodon
+dactylon, as well as deodorizing plants such as mint (Mentha spp.) and lemongrass
+(Cymbopogon citratus), are planted.
+
+    (e) Methane oxidation cover layer (30–50 cm): A mixture of compost and wood
+chips (1:1 by volume), which utilizes naturally enriched methanotrophic bacteria to
+oxidize CH₄ into CO₂.
+
+    (f) Leachate conditioning tank: Volume approximately 500–800 m³ (capable of
+accommodating three months of leachate generation). The tank is divided into a normal
+recirculation compartment and an overflow temporary storage compartment for the rainy
+season. A floating cover is installed on top, and the tank is equipped with an online liquid
+level meter and conductivity monitoring probe. When the conductivity exceeds 8 mS/cm,
+the corresponding batch of leachate is diverted to an evaporation pond or mixed with
+steel slag powder to prepare backfill material, and is no longer recirculated.
+
+    (g) Black soldier fly breeding area: A mesh-enclosed facility (~10 m²) is established
+adjacent to the heap. Prepupae are periodically collected from the heap and transferred to
+the breeding area for eclosion, mating, and oviposition. The resulting egg masses are then
+re-inoculated into the organic mixture layers of the heap.
+
+    (h) Monitoring system: Temperature, moisture content, pH, and gas (O₂, CO₂, CH₄)
+sensors equipped with data loggers are embedded at different depths within the heap (50
+cm, 100 cm, 200 cm). At least three groundwater monitoring wells are installed around
+the site (one upgradient, two downgradient), with quarterly sampling and analysis for pH,
+heavy metals, COD, and other relevant parameters.
+
+
+4.3 Operation and Regulation Scheme
+
+    Months 0–3 (Rapid start-up phase): All layer sequences are placed in a single
+construction campaign. Black soldier fly and MICP bacterial agents (Bacillus pasteurii,
+Bacillus sphaericus, Bacillus megaterium, and CA-producing enzyme bacteria) are
+inoculated. Leachate recirculation is initiated (twice per week, recirculation ratio 0.5:1).
+Heap temperature (target: 55–65°C) and pH (target: 7–9) are monitored with priority.
+    Months 4–12 (Main reaction phase): Black soldier flies undergo continuous
+reproduction and bioconversion. Kitchen waste and straw are supplemented monthly.
+Leachate recirculation frequency is reduced (once per week). Low-concentration CO₂
+flue gas (5–10% CO₂, sourced from plant boiler exhaust) injection into the bottom of the
+heap begins. Forced aeration is performed once per month (low-pressure blower, airflow
+rate 0.5–1.0 L/min/kg) to maintain dissolved oxygen concentration within the heap above
+2 mg/L. Natural plant colonization commences.
+
+    Years 2–5 (Stabilized transformation phase): Supplementation of organic waste is
+terminated. Leachate recirculation is reduced to once per month. Continuous CO₂ flue gas
+injection is maintained. Heap sampling (core drilling) is conducted semi-annually for
+analysis of f-CaO content, CaCO₃ content, mineral phase composition (XRD), micro-
+morphology (SEM), and pore structure (mercury intrusion porosimetry, MIP). 16S rRNA
+high-throughput sequencing of the microbial community is performed every three months.
+
+    Odor control scheme: Biochar or zeolite (5–10% by volume) is incorporated into the
+organic mixture layers to increase porosity and promote natural ventilation. Activated
+carbon or zeolite (5 wt%) is added to the surface cover layer to capture H₂S and NH₃. A
+biofilter (packed with wood chips, bark, and compost) is installed at the end of the gas
+collection pipe network to oxidize H₂S, NH₃, and VOCs into SO₄²⁻ and NO₃⁻.
+
+    Salt accumulation prevention and control: Approximately 10–15% of the total
+leachate volume is discharged monthly, and the high-salinity leachate is directed to an
+evaporation pond or mixed with steel slag powder to produce low-strength backfill
+material. During the rainy season, fresh water is introduced through a rainwater collection
+system for dilution. Halophytes (Suaeda glauca, Suaeda salsa) are planted on the heap
+surface to absorb salt ions such as Na⁺ and K⁺.
+
+    Methane control: When the methane concentration collected from the gas pipe
+network exceeds 5% (v/v), a ground-level flare system is activated for combustion
+treatment.
+
+    End of Year 5 (Evaluation and mining phase): A comprehensive assessment of the f-
+CaO conversion rate, mineral phase composition, and physical-mechanical properties of
+each heap layer is conducted. The surface zone is retained as an ecological landscape.
+The lower zones are selectively "mined," and the recovered "artificial ore" is sent to a
+building materials remanufacturing pilot line for medium-scale testing of autoclaved
+bricks, carbonated bricks, and aggregates.
+
+
+4.4 Key Monitoring Indicators
+
+    Table 5 Key monitoring indicator system for the 10,000-ton-scale proof-of-concept
+engineering system
+
+    5 Strategic Value and National Significance
+
+
+5.1 Establishing a National Strategic Reserve of Calcium-Silicon
+Resources
+
+    From a geological resource perspective, the 1.5 billion tons of steel slag historically
+stockpiled in China, with a CaO content of approximately 40–50% and SiO₂ content of
+approximately 10–15%, represents a highly substantial quantity of recoverable calcium-
+silicon resources. Against the backdrop of limited natural limestone resources,
+increasingly stringent mining restrictions, and the progressive depletion of high-quality
+sand and gravel aggregates, these steel slag deposits constitute a veritable — and as yet
+unrecognized — "artificial limestone ore vein." Through a controlled transformation
+period of 5–10 years, AAD technology converts this "low-grade raw ore" into stable,
+readily extractable "high-grade artificial ore." In essence, it transforms the current
+environmental liability into a national strategic resource reserve capable of securing raw
+material security for the building materials industry for decades to come.
+
+
+5.2 Generating Massive Artificial Carbon Sinks
+
+    The carbonation-based carbon sequestration potential of steel slag is theoretically
+established: each ton of f-CaO that is fully carbonated can fix 0.78 tons of CO₂. Given
+that silicate minerals such as C₂S and C₃S also exhibit carbonation reactivity, the
+comprehensive carbon sequestration potential of steel slag is approximately 0.2–0.4 tCO₂
+per ton of steel slag. If the existing 1.5 billion tons of historically stockpiled steel slag
+were fully carbonated through the AAD system, 300–600 million tons of CO₂ could be
+sequestered over the full life cycle. If the approximately 100 million tons of newly
+generated steel slag each year were also incorporated into this system, an additional 20–
+40 million tons of CO₂ could be fixed annually. The carbonation product, CaCO₃,
+represents one of the most stable forms of carbon sequestration on a geological timescale,
+far surpassing carbon stored in biomass form.
+
+    Life-cycle carbon footprint analysis. Carbon sink side (positive benefits) includes:
+steel slag carbonation, which fixes 0.2–0.4 tCO₂ per ton of steel slag; biochar stable
+carbon sequestration, which fixes 0.05–0.1 tCO₂ per ton of organic waste; and plant
+photosynthetic carbon fixation (during the ecological park stage), which sequesters 0.01–
+0.02 tCO₂ per year per mu (approx. 0.067 ha). Carbon emission side (negative benefits)
+includes: material transportation; leachate recirculation pumping (annual electricity
+consumption of approximately 5,000–10,000 kWh); CO₂ injection fans; mechanical
+compaction; and personnel operations and monitoring. Preliminary estimates indicate a
+net carbon sink efficiency of approximately 70–80% of the theoretical carbon
+sequestration capacity, corresponding to a net carbon sink of approximately 0.15–0.3
+tCO₂ per ton of steel slag processed.
+
+    Carbon sink classification and long-term monitoring. Carbon sinks should be
+classified into three categories and measured separately: (1) Permanent carbon sink
+(geological storage grade, half-life >10⁶ years): carbon fixed as CaCO₃ through steel slag
+carbonation; (2) Long-term carbon sink (centennial scale, half-life approximately 100–
+1,000 years): carbon fixed in biochar; (3) Temporary carbon sink (annual to decadal
+scale): residual undecomposed organic carbon and plant biomass carbon remaining in the
+stockpile. It is recommended to establish a multi-scale carbon sink monitoring system
+comprising: stockpile-scale monitoring (CO₂ flux sensing probes); landfill-scale
+monitoring (eddy covariance method for measuring net CO₂ flux); laboratory analysis
+(TGA + EA for determining total carbon and inorganic carbon content); and isotope
+tracing (¹³C-labeled CO₂ to track the pathways of carbon migration and transformation).
+
+    Temporal value of carbon sinks. Steel slag carbonation achieves immediate carbon
+sequestration — CO₂ is permanently fixed within hours to days, and the carbon sink
+benefit is realized instantaneously. By contrast, afforestation-based carbon sinks require
+10–20 years to reach maximum carbon sequestration rates and face reversal risks from
+wildfires, pests, and diseases. Under the urgent timetable of the "dual carbon" goals
+(carbon peak and carbon neutrality), technological solutions capable of generating
+substantial, immediate carbon sinks in the near term possess irreplaceable strategic value.
+The temporal advantage of steel slag carbonation as an instantaneous carbon sink
+provides additional support for its pricing and competitiveness in carbon trading markets.
+
+    Comparison with other carbon sink technologies. The unique advantages of steel slag
+carbonation for carbon sequestration include: extremely high carbon stability (CaCO₃ is
+one of the most stable carbon sink forms in the Earth's surface layer); synergy with solid
+waste management (simultaneously achieving steel slag valorization and carbon
+sequestration); and acceptable cost (leveraging natural forces and the leverage of time to
+reduce energy consumption). In carbon trading markets, immediate carbon sinks typically
+command a "temporal premium" — buyers are willing to pay higher prices for immediate
+emission reductions.
+
+    Carbon leakage prevention and control. Potential carbon leakage pathways include:
+carbon emissions arising from land-use changes caused by land occupation for stockpile
+sites; fuel-related carbon emissions from transporting organic waste; and reduced
+alternative energy carbon savings when organic waste is diverted from its original
+treatment pathway (e.g., incineration for power generation). Prevention and control
+measures include: prioritizing the use of abandoned industrial land and already degraded
+land for stockpile site construction; prioritizing organic waste sources within a 50 km
+radius of the stockpile site; and prioritizing organic waste originally destined for landfill
+disposal to avoid competition with high-energy-efficiency pathways such as incineration
+for power generation.
+
+    Carbon sink measurement and certification. The carbon sink volume from steel slag
+carbonation has not yet been incorporated into existing carbon trading systems (e.g.,
+CCER methodologies). It is recommended to collaborate with organizations such as the
+China Quality Certification Center (CQC) to promote the development of a CCER
+methodology for steel slag carbonation. Prior to approval of the methodology,
+certification under international voluntary carbon reduction standards such as VCS
+(Verified Carbon Standard) or GS (Gold Standard) may be pursued as an interim measure.
+
+
+5.3 Catalyzing a New Industry: The "Artificial Ore Deposit Industry"
+
+    The "Jianggang Plan" is not merely a technology; it has the potential to catalyze an
+entirely new industrial category — the "artificial ore deposit industry." This industry
+encompasses the entire chain: the refined geological design of stockpile sites (a form of
+"reverse mining" that prepares for future extraction); long-term monitoring and process
+regulation (analogous to mine pressure and hydrological monitoring); and future selective
+extraction and building material remanufacturing. In terms of industrial form, it
+represents a hybrid of the "storage + dispatch" model of strategic petroleum reserves and
+the "ecology + landscape" model of national parks — a composite emerging industry that
+integrates resource reserve management, carbon sink operations, ecological services, and
+building materials production.
+
+
+5.4 Deep Alignment with National Strategies
+
+    AAD technology aligns closely with China's top-level national strategies across
+multiple dimensions: it directly contributes to the carbon sink target of the "dual carbon"
+goals; it perfectly fulfills the requirements of the "Ten Measures for Solid Waste"
+concerning "strengthening control over historically stockpiled volumes" and "improving
+the comprehensive utilization rate of bulk solid wastes"; it responds in a highly
+innovative manner to the strategic deployment of "building a waste recycling system" in
+the 15th Five-Year Plan for Circular Economy Development; and the ecological
+succession outcome of "mining area transformed into park" provides a vivid practical
+example from the field of industrial solid waste management that embodies the principle
+that "lucid waters and lush mountains are invaluable assets."
+
+
+5.5 Preliminary Economic Feasibility Analysis
+
+    Revenue source analysis. The main revenue sources include: solid waste treatment
+fees (CNY 30–50 per ton paid by steel slag producers); organic waste treatment fees
+(CNY 100–150 per ton subsidy for food waste treatment, CNY 50–100 per ton subsidy
+for straw collection); carbon sink revenue (calculated at an expected CCER price of CNY
+50–80 per tCO₂); building material product sales (autoclaved bricks/carbonated bricks at
+CNY 50–80 per ton); and black soldier fly product revenue (insect protein at CNY 3,000–
+5,000 per ton, insect frass organic fertilizer at CNY 500–800 per ton). At scale,
+ecotourism revenue may also serve as a supplementary income stream.
+
+    Cost analysis. The main costs include: land occupation fees; infrastructure
+construction costs (HDPE impermeable membranes, pipeline networks, sensors);
+operation and maintenance costs (energy consumption, labor, monitoring); and interest on
+investment (five-year capital immobilization cost). Based on preliminary estimates, the
+comprehensive annual operating cost of a 10,000-ton-scale concept verification project
+treating 4,000 tons per year is approximately CNY 40–50 million per year. After
+accounting for subsidies and carbon sink revenues, annual income is estimated at
+approximately CNY 45–55 million, suggesting the potential to achieve a break-even to
+marginally profitable operation.
+
+    Economies-of-scale analysis. Table 6 presents a comparison of costs and benefits
+across projects of different scales.
+
+    Table 6 Cost–Benefit Comparison of "Jianggang" Projects at Different Scales
+
+    As project scale increases, unit costs decline significantly and economic returns
+progressively improve. It is recommended that, once concept verification is successful,
+replication and scaling be pursued as expeditiously as possible, first to the 100,000-ton
+scale and then to the 1-million-ton scale.
+
+    Risk assessment and sensitivity analysis. The main risk factors include: technical risk
+(incomplete diagenesis within five years; probability: medium; impact: high; response:
+extend the duration to 7–8 years or optimize process parameters); technical risk (decline
+of functional microbial consortia; probability: medium; impact: medium; response:
+multiple inoculations + establishment of a backup strain bank); market risk (large
+fluctuations in carbon sink prices; probability: high; impact: medium; response: sign
+long-term advance carbon sink sales agreements); market risk (depressed building
+materials market; probability: medium; impact: medium; response: product
+diversification + downgraded utilization); policy risk (adjustments to solid waste subsidy
+policies; probability: low; impact: high; response: reduce dependence on any single
+subsidy); and environmental risk (heavy metal leakage; probability: low; impact: high;
+response: multi-layer impermeable barriers + continuous monitoring).
+
+    Sensitivity analysis indicates that, using a carbon sink price of CNY 60 per tCO₂ and
+a steel slag treatment fee of CNY 40 per ton as the baseline: when the carbon sink price
+falls by 50% (to CNY 30 per tCO₂), project revenue decreases by approximately 15–20%;
+when the steel slag treatment fee falls by 50% (to CNY 20 per ton), project revenue
+decreases by approximately 10–15%; when both the carbon sink price and the steel slag
+treatment fee fall by 50% simultaneously, the project can still maintain near-break-even
+operation. This indicates that the project's economic performance exhibits good resilience
+to variations in key parameters.
+
+
+5.6 Exploration of Innovative Business Models
+
+    In addition to the traditional models of solid waste treatment fees and building
+material sales revenue, the following innovative business models are recommended for
+exploration:
+
+    "Carbon Sink Bank" model: At project inception, steel enterprises sign forward
+carbon sink pre-sale agreements with carbon sink demanders, locking in carbon sink
+prices in advance (analogous to carbon futures), thereby securing upfront investment
+capital.
+
+    "Green Trust" model: The project is packaged as a green trust product and offered to
+institutional and individual investors for fundraising, with the project's diversified
+revenue streams serving as the repayment source.
+
+    "Government Service Procurement" model: The project is incorporated into the
+government's public service system for ecological restoration and solid waste
+management. Through franchising or service procurement arrangements, the government
+pays the project operator ecological restoration service fees and carbon sink procurement
+fees. This model has established precedent in public infrastructure sectors such as
+wastewater treatment, waste incineration, and mine site restoration. The government can
+provide stable support by: including the project in local special plans for solid waste
+treatment facilities (granting land allocation and tax incentives); signing long-term (10–
+20 year) solid waste treatment service contracts (securing the project's baseline revenue);
+and incorporating the carbon sink into local carbon peak action plans.
+
+    "Ecological Restoration + Resource Development" integrated model: Stockpile sites
+are combined with mine ecological restoration and urban brownfield remediation projects.
+The local government provides land and supporting infrastructure, while the operator is
+responsible for construction and operation, thereby achieving the unification of ecological
+benefits and economic returns.
+
+    6 Risks, Challenges, and Further Research Needs
+
+
+6.1 Key Scientific Issues
+
+    (a) Multi-factor synergistic kinetic modeling. The reactions occurring simultaneously
+within the stockpile—including organic acid leaching, microbial mineralization, direct
+carbonation, and hydration—exhibit complex coupling and competitive relationships.
+Establishing a mathematical model that accurately describes the transformation kinetics
+of f-CaO and the RO phase (MgO-FeO-MnO solid solution) under multi-factor synergy is
+a prerequisite for process prediction and parameter optimization. Currently lacking are
+experimental data on steel slag transformation kinetics under the ternary coupling
+condition of "organic acid–MICP–CO₂."
+
+    (b) Multi-field coupling of mass transfer, heat transfer, and reaction within the
+stockpile. A 10,000-ton-scale stockpile constitutes a典型的 heterogeneous porous media
+reactor, within which the distribution and evolution of the temperature field, moisture
+field, gas concentration field, and chemical reactions are extremely complex. Multi-field
+coupled numerical simulation methods tailored to steel slag–organic waste mixed
+stockpiles need to be developed.
+    (c) Long-term maintenance of functional microbial activity. Whether the inoculated
+MICP functional bacterial consortium can maintain its activity over a 5-year timescale
+within the continuously evolving chemical and physical environment of the stockpile is
+the core microbiological issue determining system success. Long-term experiments are
+needed to study the succession patterns and functional stability of the microbial
+community. Bacteriophage infection is a significant risk factor that can lead to functional
+microbial collapse; preventive and control measures include multi-strain rotational
+inoculation, physical isolation via biochar micropores, environmental regulation
+deviating from optimal phage reproduction conditions, and the establishment of a backup
+strain bank.
+
+    (d) Long-term stability of the RO phase. The RO phase (MgO-FeO-MnO solid
+solution) undergoes slow hydration under natural conditions, which may still cause
+volume changes over a timescale of decades. In the AAD environment, the organic acid
+environment of Phase I can selectively react with MgO on the surface of the RO phase,
+converting it into dissolved Mg²⁺, which is subsequently carbonated into stable MgCO₃.
+The transformation effectiveness of the RO phase should be evaluated by monitoring the
+amount of high-magnesium calcite formed.
+
+    (e) Heavy metal migration, transformation, and risk control. Heavy metals in steel
+slag (Cr, Ni, Pb, Zn, Cd, etc.) face the risk of activation and leaching under the low-pH
+conditions (pH 4–6) of Phase I. However, the AAD system possesses a unique "self-
+stabilization" mechanism: when the pH rises back to 8–10 in Phases II and III, dissolved
+heavy metals can be re-immobilized through co-precipitation with CaCO₃, adsorption by
+C-S-H gel, and complexation with oxygen-containing functional groups on biochar
+surfaces. Recommendations: control organic acid production during the acidification
+phase to avoid prolonged pH below 5; increase biochar dosage (from 5% to 8–10%);
+conduct monthly sampling to monitor key heavy metal concentrations (Cr(VI), Ni, Pb,
+etc.) in leachate; and establish an emergency leachate collection pond.
+
+    (f) Steel slag–black soldier fly compatibility. The dose–response relationship
+between steel slag incorporation ratio and black soldier fly growth and development must
+be determined experimentally. Experimental design: set up steel slag incorporation
+gradients (0%, 10%, 20%, 30%, 40%, 50% by mass) under laboratory conditions,
+introduce 100 three-day-old larvae per group, observe continuously for 14 days, and
+monitor larval survival rate, average body weight, pupation rate, adult emergence rate,
+and heavy metal content in larvae and frass. Simultaneously, set up frass–steel slag
+transformation experiments (frass:steel slag mass ratio gradient), cultivate under constant
+temperature and humidity for 90 days, and monitor changes in f-CaO and CaCO₃ contents.
+It is expected that the "slow-release" characteristics of humic acid and fulvic acid in the
+frass will continue to exert a promoting effect during Phases II and III.
+
+
+6.2 Key Engineering Challenges
+
+    (a) Leachate management and recirculation optimization. The leachate generated by
+the stockpile contains high concentrations of calcium ions, organic acids, and microbial
+metabolites. The timing, flow rate, and water quality control of its recirculation require
+fine-tuned regulation. When the COD in the leachate exceeds 5,000 mg/L or the NH₃-N
+concentration exceeds 500 mg/L, a pretreatment pond should be introduced to utilize the
+inherently high pH and high calcium characteristics of steel slag for chemical
+precipitation pretreatment before recirculation.
+
+    (b) Product homogeneity assurance. Due to spatial heterogeneity in temperature,
+moisture, gas concentration, and microbial distribution within the stockpile, the mineral
+composition and mechanical properties of the "artificial ore" may vary significantly
+across different zones. Assurance measures include: rationally designing the spatial
+distribution of leachate recirculation and CO₂ injection points; adopting zonal extraction
+combined with mechanical stirring homogenization; and establishing a graded utilization
+system—high-activity products (CaCO₃ > 60%, f-CaO < 1%) for cement clinker,
+medium-activity products (CaCO₃ 30–60%) for autoclaved products, and low-activity
+products (CaCO₃ < 30%) for carbonated building materials or engineering fillers.
+
+    (c) Ecological risk prevention and control. The potential impact of the system on the
+surrounding environment should be assessed from the following dimensions:
+groundwater safety (upstream and downstream monitoring wells, quarterly testing for pH,
+heavy metals, and COD, with early warning thresholds set); atmospheric environmental
+impact (monitoring H₂S at the stockpile boundary not exceeding 0.06 mg/m³); soil and
+biodiversity (semiannual heavy metal testing of soil within 50 m of the stockpile
+perimeter, and surveys of plant and soil animal diversity).
+
+    (d) Winter low-temperature countermeasures. In northern regions, the optimal
+temperature for black soldier fly (25–30°C) is difficult to maintain naturally.
+Countermeasure strategies: lay a 30–50 cm thick insulation layer of straw or wood chips
+around the bottom and sides of the stockpile, utilizing internal bioheat to maintain core
+temperature; breed low-temperature-adapted black soldier fly strains; and adopt a
+rotational scheme of "black soldier fly as the primary transformation agent from April to
+October + microorganism-dominated phase from November to March."
+
+
+6.3 Further Research Roadmap
+    Table 7 "Jianggang Plan" Phased Research Roadmap
+
+    7 Conclusions
+
+    The "Jianggang Plan" proposed in this paper represents a fundamental leap in the
+perception of "industrial solid waste." It acknowledges the temporary limitations of
+human engineering interventions within the grand material cycle and instead turns to
+nature for solutions, harnessing its most powerful weapons—time and biological
+communities—to resolve the century-old challenge of steel slag resource utilization.
+
+    The core academic contributions of this paper are as follows:
+
+    For the first time, the theory of "Accelerated Artificial Diagenesis (AAD)" has been
+systematically proposed, compressing geological-scale natural diagenesis into an
+engineering-achievable 5-year cycle through multi-factor synergistic intensification;
+
+    A multi-source waste synergistic共生体系 has been constructed, revealing five key
+biochemical mechanisms: the coupling of organic acid release with calcium ion release,
+the active utilization of steel slag self-pulverization, the coupling of bioheat generation
+with self-heating maintenance, the coupling of in-situ CO₂ supply with carbonation, and
+the coupling of straw skeleton structure with enhanced aeration;
+    A "microorganism–insect–plant" tripartite synergistic transformation system has
+been designed, achieving the organic integration of functional bacterial mineralization,
+black soldier fly bioconversion, and pioneer plant ecological restoration;
+
+    A five-year, three-phase ecological succession model has been proposed, establishing
+a rigorous correspondence with geological diagenetic stages;
+
+    A complete conceptual engineering design at the 10,000-ton scale has been
+completed, demonstrating its scientific feasibility, engineering viability, and economic
+rationality.
+
+    This is not merely a technical solution, but a new resource perspective and
+development philosophy. Its core insight is that the industrial waste currently regarded as
+a burden, under appropriate spatiotemporal scales and ecosystem design, can fully be
+transformed into a strategic resource for the future. This paradigm shift—from
+"treatment" to "transformation" and from "burden" to "asset"—may well represent the
+starting point for industrial civilization to move toward a "geological-scale circular
+economy" in harmony with the Earth system.
+
+
+Acknowledgements
+
+    The authors of this paper are open researchers. This paper has benefited from
+numerous pioneering studies—the microbial mineralization technology of Professor Qian
+Chunxiang's team at Southeast University, the engineering breakthroughs of the HBIS
+Group CCUS industrial demonstration project, the black soldier fly industrialization
+practices of Professor Huang Yongping's team at Shanghai Jiao Tong University, and
+international frontier explorations such as Carbon8 (UK) and JFE Steel (Japan). All
+research results cited in this paper are duly credited. The authors express their deep
+respect for these pioneering studies.
+
+
+References
+
+    [1] National Bureau of Statistics of China. China Statistical Yearbook [M]. Beijing:
+China Statistics Press, 2024.
+    [2] GB 175-2023. Common Portland Cement [S]. State Administration for Market
+Regulation, 2023.
+
+    [3] State Council of China. Action Plan for Comprehensive Solid Waste Treatment
+(Guo Fa [2025] No. 14) [Z]. 2025.
+
+    [4] Zhang L Q. Expanding the pathways for steel slag resource utilization and
+building an upstream–downstream industrial synergy cycle [J]. China Steel Industry,
+2026.
+
+    [5] Qian C X, et al. Microbial technology combined with rotary process to accelerate
+steel slag carbonation for CO₂ fixation from cement kiln flue gas and production of
+supplementary cementitious materials[J]. Engineering, 2025.
+
+    [6] Qian C X, et al. Study on synergistic enhancement mechanism and reaction
+kinetics of carbonic anhydrase-producing microorganisms on steel slag powder
+carbonation in suspension process [J]. 2025.
+
+    [7] Direct CO₂ Mineralization of Steel Slag Accelerated by Sporosarcina pasteurii[J].
+ACS Sustainable Chemistry & Engineering, 2025.
+
+    [8] Stabilising Effect of Steel Slag Modified Synergistically by Multivariate
+Microorganisms[J]. 2025.
+
+    [9] Study on Improving the Stability of Steel Slag Fine Aggregate by Boiling
+Pretreatment Combined with Microbial Mineralization[J]. MDPI, 2025.
+
+    [10] Preparation of straw fiber composite alkali-activated steel slag-based foam
+concrete [Z].
+
+    [11] CN120647217A. A modified steel slag synergistic with iron tailings and straw
+for asphalt concrete and preparation method thereof [P].
+
+    [12] Application of steel slag and rice straw biochar composite material in soil
+remediation [Z].
+    [13] Combined Application of Green Waste Compost and Steel Slag Amendments
+Enhances Growth, Soil Health, and Drought Resilience in Durum Wheat Under Field
+Conditions[J]. 2025.
+
+    [14] HBIS Group CCUS Technology Industrial Demonstration Project [R]. 2026.
+
+    [15] Huang Y P. Research progress on black soldier fly bioconversion of organic
+waste [J]. Journal of Shanghai Jiao Tong University, 2025.
+
+    [16] Shenzhen Yantian Black Soldier Fly Food Waste Treatment Demonstration
+Zone Project [R]. 2025.
+
+    [17] Research progress on black soldier fly bioconversion of organic waste and
+resource utilization of frass [J]. Journal of Agro-Environment Science, 2025.
+
+    [18] Past, Present, and Future of Ferrous Slag Toward the Established Sustainable
+Society in Japan[J]. Journal of Sustainable Metallurgy, 2025.
+
+    [19] JFE Steel R&D Facility Begins Testing CO₂ Fixation Via Steelmaking-slag
+Carbonation[Z]. 2025.
+
+    [20] Nippon Steel ViVary™ Unit Marine Ecological Restoration Technology [Z].
+
+    [21] Carbon4Minerals at Slag Valorisation Symposium 2025[Z]. 2025.
+
+    [22] GB/T 47193-2026. Technical specification for application of steel slag in mine
+restoration backfill [S]. 2026.
+
+    [23] GB/T 14685-2022. Pebble and crushed stone for construction [S]. 2022.
+
+    Date of completion: May 18, 2026
+
