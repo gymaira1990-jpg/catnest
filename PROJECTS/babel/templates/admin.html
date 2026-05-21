@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上帝之手 · 管理面板 / God Panel</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #ccc;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 16px; color: #666; letter-spacing: 3px;
+            text-transform: uppercase; margin-bottom: 20px;
+            border-bottom: 1px solid #222; padding-bottom: 8px;
+        }
+        h2 {
+            font-size: 13px; color: #888; letter-spacing: 2px;
+            margin: 16px 0 8px; text-transform: uppercase;
+        }
+        .login-box {
+            background: #151515; border: 1px solid #333;
+            padding: 24px; margin-top: 40px;
+        }
+        .login-box label {
+            display: block; font-size: 11px; color: #666;
+            letter-spacing: 2px; margin-bottom: 6px;
+        }
+        .login-box input {
+            background: #0a0a0a; border: 1px solid #333;
+            color: #ccc; padding: 8px 12px; width: 100%;
+            font-family: "Courier New", monospace; font-size: 14px;
+        }
+        .login-box input:focus { outline: none; border-color: #555; }
+        .login-box button {
+            margin-top: 12px; background: #222; border: 1px solid #444;
+            color: #ccc; padding: 8px 24px; cursor: pointer;
+            font-family: "Courier New", monospace; letter-spacing: 2px;
+        }
+        .login-box button:hover { background: #333; }
+        .error { color: #ff4444; font-size: 12px; margin-top: 8px; }
+
+        .action-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-top: 8px;
+        }
+        .action-btn {
+            background: #151515; border: 1px solid #333;
+            color: #aaa; padding: 10px; cursor: pointer;
+            font-family: "Courier New", monospace; font-size: 11px;
+            letter-spacing: 1px; text-align: center;
+        }
+        .action-btn:hover { background: #222; border-color: #555; color: #fff; }
+        .action-btn.danger:hover { border-color: #8b0000; color: #ff4444; }
+        .action-btn.warn:hover { border-color: #8b6914; color: #ffd700; }
+
+        .config-row {
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 6px 0;
+            border-bottom: 1px solid #1a1a1a; font-size: 12px;
+        }
+        .config-row label { color: #888; }
+        .config-row .val { color: #ddd; }
+        .config-row input {
+            background: #0a0a0a; border: 1px solid #333;
+            color: #ddd; padding: 2px 6px; width: 80px;
+            font-family: "Courier New", monospace; font-size: 12px;
+            text-align: center;
+        }
+        .status-item {
+            font-size: 12px; padding: 4px 0; color: #777;
+        }
+        .status-item span { color: #ddd; }
+
+        .result-box {
+            margin-top: 12px; padding: 8px; background: #151515;
+            border: 1px solid #333; font-size: 11px; color: #888;
+            min-height: 20px;
+        }
+        .footer {
+            margin-top: 24px; font-size: 10px; color: #444;
+            text-align: center; letter-spacing: 1px;
+        }
+        .footer a { color: #555; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>⛪ 上帝之手 / God Panel</h1>
+
+    {% if need_login %}
+    <div class="login-box">
+        <form method="POST">
+            <label>密码 / Password</label>
+            <input type="password" name="password" autofocus>
+            <button type="submit">验证 / Authenticate</button>
+        </form>
+        {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    </div>
+    {% else %}
+    <h2>⚡ 行动 / Actions</h2>
+    <div class="action-grid">
+        <div class="action-btn danger" onclick="godAction('reset')">⭕ 重置画布</div>
+        <div class="action-btn warn" onclick="godAction('freeze')">
+            {% if canvas.is_frozen %}▶ 解冻画布{% else %}⏸ 冻结画布{% endif %}
+        </div>
+        <div class="action-btn" onclick="godSplash()">🎨 随机泼色 (100)</div>
+        <div class="action-btn" onclick="godSplash(500)">🎨 随机泼色 (500)</div>
+    </div>
+
+    <h2>⚙️ 配置 / Config</h2>
+    <div>
+        <div class="config-row">
+            <label>成长阈值 / Growth Threshold</label>
+            <div>
+                <input type="number" id="cfgThreshold" value="{{ config.growth_threshold }}" step="0.05" min="0.1" max="1.0">
+                <button class="action-btn" style="padding:2px 8px;font-size:10px;display:inline;" onclick="updateConfig('growth_threshold', document.getElementById('cfgThreshold').value)">更新</button>
+            </div>
+        </div>
+        <div class="config-row">
+            <label>每次成长尺寸 / Growth Size</label>
+            <div>
+                <input type="number" id="cfgGrowthSize" value="{{ config.growth_size }}" step="10" min="10" max="500">
+                <button class="action-btn" style="padding:2px 8px;font-size:10px;display:inline;" onclick="updateConfig('growth_size', document.getElementById('cfgGrowthSize').value)">更新</button>
+            </div>
+        </div>
+        <div class="config-row">
+            <label>像素大小 / Pixel Size</label>
+            <div>
+                <input type="number" id="cfgPixelSize" value="{{ config.pixel_size }}" step="1" min="1" max="20">
+                <button class="action-btn" style="padding:2px 8px;font-size:10px;display:inline;" onclick="updateConfig('pixel_size', document.getElementById('cfgPixelSize').value)">更新</button>
+            </div>
+        </div>
+        <div class="config-row">
+            <label>自动成长 / Auto Growth</label>
+            <div>
+                <span class="val">{{ '开启' if config.auto_growth else '关闭' }}</span>
+                <button class="action-btn" style="padding:2px 8px;font-size:10px;display:inline;" onclick="toggleAutoGrowth()">切换</button>
+            </div>
+        </div>
+    </div>
+
+    <h2>📊 状态 / Status</h2>
+    <div class="status-item">画布尺寸: <span id="sSize">{{ canvas.width }}×{{ canvas.height }}</span></div>
+    <div class="status-item">总信号: <span id="sSignals">{{ canvas.total_signals }}</span></div>
+    <div class="status-item">非空白像素: <span id="sPixels">{{ canvas.non_blank_pixels }}</span></div>
+    <div class="status-item">成长次数: <span id="sGrowth">{{ canvas.growth_count }}</span></div>
+    <div class="status-item">上帝干预: <span id="sGod">{{ canvas.god_interventions }}</span></div>
+    <div class="status-item">状态: <span id="sFrozen">{{ '冻结' if canvas.is_frozen else '运行中' }}</span></div>
+
+    <div class="result-box" id="resultBox">等待操作...</div>
+
+    <div class="footer">
+        历史 · 文明 · 数字 · 进化 · 巅峰 &nbsp;|&nbsp;
+        <a href="/view" target="_blank">查看画布</a>
+    </div>
+
+    <script>
+        const GOD_KEY = "{{ GOD_PASSWORD }}";
+
+        function godAction(action) {
+            if (action === 'reset' && !confirm('确定要重置画布吗？所有像素将被清空。')) return;
+
+            const endpoints = {
+                reset: '/api/reset',
+                freeze: '/api/freeze',
+            };
+
+            fetch(endpoints[action], {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-God-Key': GOD_KEY,
+                }
+            })
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('resultBox').textContent = JSON.stringify(data, null, 2);
+                setTimeout(() => location.reload(), 1000);
+            })
+            .catch(err => {
+                document.getElementById('resultBox').textContent = 'Error: ' + err;
+            });
+        }
+
+        function godSplash(count) {
+            count = count || 100;
+            fetch('/api/splash', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-God-Key': GOD_KEY,
+                },
+                body: JSON.stringify({ count: count })
+            })
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('resultBox').textContent = JSON.stringify(data, null, 2);
+                setTimeout(() => location.reload(), 1500);
+            })
+            .catch(err => {
+                document.getElementById('resultBox').textContent = 'Error: ' + err;
+            });
+        }
+
+        function updateConfig(key, value) {
+            const body = {};
+            body[key] = value;
+            fetch('/api/config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-God-Key': GOD_KEY,
+                },
+                body: JSON.stringify(body)
+            })
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('resultBox').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(err => {
+                document.getElementById('resultBox').textContent = 'Error: ' + err;
+            });
+        }
+
+        function toggleAutoGrowth() {
+            fetch('/api/config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-God-Key': GOD_KEY,
+                },
+                body: JSON.stringify({ auto_growth: {{ 'false' if config.auto_growth else 'true' }} })
+            })
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('resultBox').textContent = JSON.stringify(data, null, 2);
+                setTimeout(() => location.reload(), 1000);
+            });
+        }
+    </script>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,5 @@
+{
+    "canvas_server_url": "http://localhost:8800",
+    "interval_minutes": 1440,
+    "color_preference": "#9370DB"
+}
