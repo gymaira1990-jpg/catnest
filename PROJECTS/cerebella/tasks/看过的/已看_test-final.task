@@ -1,0 +1,15 @@
+---
+task_id: final-test
+title: 最终验证测试
+capability: chat
+status: verified
+created_at: '2026-04-29T06:12:00'
+assigned_to: DeepSeek
+assigned_model: deepseek-v4-flash
+updated_at: '2026-04-29T06:11:48'
+completed_at: '2026-04-29T06:11:48'
+---
+
+## 任务描述
+
+Cerebella 全链路最终验证。
