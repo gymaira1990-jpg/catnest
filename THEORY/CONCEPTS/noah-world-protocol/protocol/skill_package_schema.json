@@ -1,0 +1,79 @@
+{
+  "$schema": "https://noah-world.org/skill-package-schema/v1.0.json",
+  "title": "Noah World Skill Package Standard Schema",
+  "version": "1.2.0",
+  "description": "跨框架AI经验复用标准化协议——全球通用技能包JSON Schema定义",
+  "properties": {
+    "skill_id": {
+      "type": "string",
+      "description": "技能包唯一标识符，推荐使用UUID"
+    },
+    "version": {
+      "type": "string",
+      "description": "技能包版本号，遵循语义化版本规范"
+    },
+    "meta": {
+      "type": "object",
+      "description": "元数据信息",
+      "properties": {
+        "domain": { "type": "string", "description": "所属领域" },
+        "tags": { "type": "array", "items": { "type": "string" }, "description": "标签列表" },
+        "difficulty_level": { "type": "string", "enum": ["beginner", "intermediate", "advanced"], "description": "难度等级" },
+        "required_tools": { "type": "array", "items": { "type": "string" }, "description": "所需工具" },
+        "language": { "type": "string", "description": "语言代码" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "description": "溯源信息",
+      "properties": {
+        "origin": { "type": "string", "enum": ["L1", "L2", "L3", "L4"], "description": "来源层级" },
+        "verification_status": { "type": "string", "enum": ["draft", "trial", "proven", "disputed"], "description": "验证状态" },
+        "global_trust_score": { "type": "number", "minimum": 0, "maximum": 1, "description": "全球可信度评分" },
+        "total_executions": { "type": "integer", "description": "总执行次数" },
+        "first_success_timestamp": { "type": "string", "format": "date-time", "description": "首次成功时间戳" }
+      }
+    },
+    "problem_signature": {
+      "type": "object",
+      "description": "问题签名",
+      "properties": {
+        "description": { "type": "string", "description": "问题描述" },
+        "error_patterns": { "type": "array", "items": { "type": "string" }, "description": "错误模式列表" },
+        "context_rules": { "type": "object", "description": "上下文规则" }
+      }
+    },
+    "solution": {
+      "type": "object",
+      "description": "解决方案",
+      "properties": {
+        "summary": { "type": "string", "description": "方案摘要" },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "order": { "type": "integer" },
+              "action": { "type": "string", "enum": ["diagnose", "execute", "verify", "rollback"] },
+              "command": { "type": "string" },
+              "expected_output": { "type": "string" },
+              "on_success": { "type": "string" },
+              "on_failure": { "type": "string" }
+            }
+          }
+        },
+        "rollback_command": { "type": "string", "description": "回滚命令" }
+      }
+    },
+    "safety_and_ethics": {
+      "type": "object",
+      "description": "安全与伦理标签",
+      "properties": {
+        "content_category": { "type": "string", "enum": ["pure_technical"], "description": "内容类别" },
+        "l4_eligible": { "type": "boolean", "description": "是否可进入L4" },
+        "arbiter_note": { "type": "string", "description": "仲裁官审查备注" }
+      }
+    }
+  },
+  "required": ["skill_id", "version", "problem_signature", "solution"]
+}
