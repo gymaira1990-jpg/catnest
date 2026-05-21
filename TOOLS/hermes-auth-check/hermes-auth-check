@@ -1,0 +1,421 @@
+#!/usr/bin/env python3
+"""
+hermes-auth-check — Diagnostic tool for Hermes Agent credential pool poisoning.
+
+Detects and fixes truncated API keys in ~/.hermes/auth.json caused by
+redact_secrets output-layer truncation (file_tools.py applies
+redact_sensitive_text() to read_file/search_file output).
+
+Many DeepSeek V4 "reasoning_content 400" errors are actually caused by
+this — the auth.json credential pool stores a literally truncated key
+(sk-c25...edd4 instead of the full key), causing 401 on restore.
+
+GitHub: https://github.com/gymaira1990-jpg/hermes-agent
+PR:      https://github.com/NousResearch/hermes-agent/pull/16174
+"""
+
+import json
+import os
+import sys
+import shutil
+import argparse
+from datetime import datetime
+from pathlib import Path
+
+# ── ANSI colors ──────────────────────────────────────────────────
+RED = "\033[91m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+CYAN = "\033[96m"
+DIM = "\033[2m"
+BOLD = "\033[1m"
+NC = "\033[0m"
+
+AUTH_JSON_PATH = os.path.expanduser("~/.hermes/auth.json")
+CONFIG_YAML_PATH = os.path.expanduser("~/.hermes/config.yaml")
+
+
+# ── Helpers ──────────────────────────────────────────────────────
+
+def e(*parts, sep=" "):
+    """Print with ANSI colors to stderr."""
+    print(*parts, sep=sep, file=sys.stderr)
+
+
+def load_auth(path: str) -> dict:
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+    except json.JSONDecodeError as exc:
+        e(f"{RED}✗{NC} Invalid JSON in {path}: {exc}")
+        sys.exit(1)
+
+
+def load_yaml_safe(path: str) -> dict:
+    """Try to load config.yaml, return {} on any error."""
+    try:
+        import yaml
+    except ImportError:
+        return {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            return yaml.safe_load(f) or {}
+    except Exception:
+        return {}
+
+
+def _mask_display(key: str) -> str:
+    """Safe display of a key — never show more than prefix+suffix."""
+    if not key:
+        return "(empty)"
+    if len(key) < 12:
+        return "(too short)"
+    return f"{key[:6]}...{key[-4:]}"
+
+
+def backup_file(path: str) -> str | None:
+    """Create a timestamped backup, return backup path or None."""
+    if not os.path.isfile(path):
+        return None
+    backup = f"{path}.bak.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    shutil.copy2(path, backup)
+    return backup
+
+
+# ── Scan logic ───────────────────────────────────────────────────
+
+POISON_MARKER = "..."      # _mask_token() inserts literal "..."
+POISON_LEN_THRESHOLD = 35  # real API keys are 32+ chars; anything under is suspect
+
+
+def is_poisoned(token: str) -> bool:
+    """True if token looks like a redacted artifact rather than a real key."""
+    return bool(token) and POISON_MARKER in token and len(token) < POISON_LEN_THRESHOLD
+
+
+def scan_auth_json(path: str) -> tuple[dict, int, int]:
+    """
+    Scan auth.json credential pool.
+
+    Returns (report_dict, total_entries, poisoned_count).
+    report_dict: {provider_id: [ {entry_info}, ... ], ...}
+    """
+    auth = load_auth(path)
+    pool = auth.get("credential_pool", {})
+    if not isinstance(pool, dict):
+        return {}, 0, 0
+
+    report = {}
+    total = 0
+    poisoned = 0
+
+    for provider_id, entries in pool.items():
+        if not isinstance(entries, list):
+            continue
+        provider_report = []
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+            total += 1
+            tok = entry.get("access_token", "")
+            status = entry.get("last_status", "?")
+            source = entry.get("source", "?")
+            label = entry.get("label", "?")
+            info = {
+                "label": label,
+                "source": source,
+                "token_len": len(tok),
+                "token_preview": _mask_display(tok),
+                "is_poisoned": is_poisoned(tok),
+                "status": status,
+                "status_code": entry.get("last_error_code"),
+                "status_msg": (entry.get("last_error_message") or "")[:80],
+            }
+            if info["is_poisoned"]:
+                poisoned += 1
+            provider_report.append(info)
+        if provider_report:
+            report[provider_id] = provider_report
+
+    return report, total, poisoned
+
+
+def scan_config_yaml(path: str, pool_providers: set) -> list[dict]:
+    """Scan custom_providers in config.yaml for truncated keys."""
+    findings = []
+    cfg = load_yaml_safe(path)
+    if not cfg:
+        return findings
+
+    custom_providers = cfg.get("custom_providers", [])
+    if isinstance(custom_providers, list):
+        for entry in custom_providers:
+            if not isinstance(entry, dict):
+                continue
+            api_key = str(entry.get("api_key") or "").strip()
+            name = entry.get("name", "?")
+            if is_poisoned(api_key):
+                findings.append({
+                    "location": f"custom_providers.{name}",
+                    "token_len": len(api_key),
+                    "token_preview": _mask_display(api_key),
+                    "source": "config.yaml",
+                    "type": "config_truncated",
+                })
+    elif isinstance(custom_providers, dict):
+        for name, entry in custom_providers.items():
+            if not isinstance(entry, dict):
+                continue
+            api_key = str(entry.get("api_key") or "").strip()
+            if is_poisoned(api_key):
+                findings.append({
+                    "location": f"custom_providers.{name}",
+                    "token_len": len(api_key),
+                    "token_preview": _mask_display(api_key),
+                    "source": "config.yaml",
+                    "type": "config_truncated",
+                })
+
+    # Also check model.api_key display (not poisoned, just info)
+    model = cfg.get("model", {})
+    model_key = str(model.get("api_key") or "").strip()
+    if model_key:
+        findings.append({
+            "location": "model.api_key",
+            "token_len": len(model_key),
+            "token_preview": _mask_display(model_key),
+            "source": "config.yaml",
+            "type": "model_key_info",
+            "is_healthy": not is_poisoned(model_key),
+        })
+
+    return findings
+
+
+# ── Fix logic ────────────────────────────────────────────────────
+
+def fix_auth_json(path: str, dry_run: bool = True) -> tuple[int, str | None]:
+    """
+    Remove poisoned entries from credential pool.
+
+    Returns (removed_count, backup_path_or_none).
+    """
+    auth = load_auth(path)
+    pool = auth.get("credential_pool", {})
+    if not isinstance(pool, dict):
+        return 0, None
+
+    removed = 0
+    backup = None
+
+    for provider_id, entries in list(pool.items()):
+        if not isinstance(entries, list):
+            continue
+        clean = [e for e in entries if not is_poisoned(e.get("access_token", ""))]
+        n_removed = len(entries) - len(clean)
+        if n_removed > 0:
+            removed += n_removed
+            if not dry_run:
+                pool[provider_id] = clean
+
+    if removed == 0:
+        return 0, None
+
+    if dry_run:
+        return removed, None
+
+    backup = backup_file(path)
+    auth["updated_at"] = datetime.now().isoformat()
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(auth, f, indent=2)
+        f.write("\n")
+
+    return removed, backup
+
+
+# ── Report rendering ─────────────────────────────────────────────
+
+def print_report(report: dict, total: int, poisoned: int, config_findings: list, verbose: bool):
+    header = f"{BOLD}{'─'*60}{NC}"
+    e(header)
+    e(f"{BOLD}  🔐 Hermes Auth Check — Credential Pool Audit{NC}")
+    e(header)
+    e()
+
+    if total == 0:
+        e(f"  {YELLOW}⚠{NC} No credential pool entries found.")
+        e()
+        return
+
+    e(f"  Total entries:  {total}")
+    e(f"  Healthy:        {GREEN}{total - poisoned}{NC}")
+    if poisoned > 0:
+        e(f"  {RED}Poisoned:       {poisoned}{NC}")
+    else:
+        e(f"  Poisoned:       {GREEN}0{NC}")
+    e()
+
+    for provider_id, entries in report.items():
+        n_poisoned = sum(1 for e in entries if e["is_poisoned"])
+        status_icon = f"{RED}⚠" if n_poisoned > 0 else f"{GREEN}✓"
+        e(f"  {status_icon}{NC} {BOLD}{provider_id}{NC}  ({len(entries)} entries, {n_poisoned} poisoned)")
+        e()
+
+        for entry in entries:
+            marker = f"{RED}✗ POISONED{NC}" if entry["is_poisoned"] else f"{GREEN}✓{NC}"
+            source = entry["source"]
+            label = entry["label"]
+            tok_preview = entry["token_preview"]
+            tok_len = entry["token_len"]
+
+            line = (
+                f"    {marker}  {DIM}source={source}{NC}  "
+                f"len={tok_len}  "
+                f"token={tok_preview}"
+            )
+            if entry["is_poisoned"]:
+                e(f"    {RED}│{NC}")
+                e(line)
+                e(f"    {RED}│{NC}  {YELLOW}→ This key has literal '...' bytes in auth.json{NC}")
+                e(f"    {RED}│{NC}  {YELLOW}→ Will cause 401 auth failures on credential restore{NC}")
+                if entry["status_code"]:
+                    e(f"    {RED}│{NC}  {DIM}last error: {entry['status_code']} {entry['status_msg']}{NC}")
+            else:
+                e(line)
+
+            if verbose:
+                e(f"    {DIM}   label={label}  status={entry['status']}{NC}")
+            e()
+
+    # Config findings
+    if config_findings:
+        e(f"  {YELLOW}⚙{NC} {BOLD}Config.yaml findings:{NC}")
+        e()
+        for finding in config_findings:
+            if finding["type"] == "config_truncated":
+                e(f"    {RED}✗{NC}  {finding['location']}  "
+                  f"len={finding['token_len']}  "
+                  f"token={finding['token_preview']}")
+                e(f"    {RED}│{NC}  {YELLOW}→ Truncated key in config! Remove or correct this entry.{NC}")
+            elif finding["type"] == "model_key_info":
+                if finding.get("is_healthy"):
+                    e(f"    {GREEN}✓{NC}  {finding['location']}  "
+                      f"len={finding['token_len']}  "
+                      f"token={finding['token_preview']}  "
+                      f"{GREEN}(healthy){NC}")
+                else:
+                    e(f"    {RED}✗{NC}  {finding['location']}  "
+                      f"len={finding['token_len']}  "
+                      f"token={finding['token_preview']}  "
+                      f"{RED}(truncated!){NC}")
+        e()
+
+    if poisoned > 0:
+        e(f"  {RED}│{NC}")
+        e(f"  {RED}├─{NC} Fix with:  {CYAN}hermes-auth-check --fix{NC}")
+        e(f"  {RED}├─{NC} Dry run:   {CYAN}hermes-auth-check --fix --dry-run{NC}")
+        e(f"  {RED}└─{NC} Root cause: https://github.com/NousResearch/hermes-agent/pull/16174")
+        e()
+
+
+# ── CLI ──────────────────────────────────────────────────────────
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="🔐 Hermes Auth Check — detect poisoned credential pool entries",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Examples:\n"
+            "  hermes-auth-check              # scan and report\n"
+            "  hermes-auth-check -v            # verbose output\n"
+            "  hermes-auth-check --fix         # remove poisoned entries\n"
+            "  hermes-auth-check --fix --dry-run  # preview without changing\n"
+            "  hermes-auth-check --path ~/custom/auth.json\n"
+        ),
+    )
+    parser.add_argument(
+        "--path", "-p",
+        default=AUTH_JSON_PATH,
+        help=f"Path to auth.json (default: {AUTH_JSON_PATH})",
+    )
+    parser.add_argument(
+        "--fix", action="store_true",
+        help="Remove poisoned entries from auth.json",
+    )
+    parser.add_argument(
+        "--dry-run", "-n", action="store_true",
+        help="Preview fix without modifying files",
+    )
+    parser.add_argument(
+        "--verbose", "-v", action="store_true",
+        help="Show detailed entry information",
+    )
+    parser.add_argument(
+        "--json", action="store_true",
+        help="Output results as JSON (for programmatic use)",
+    )
+
+    args = parser.parse_args()
+
+    # ── Scan ──────────────────────────────────────────────
+    report, total, poisoned = scan_auth_json(args.path)
+
+    # Extract provider names for config scan
+    pool_providers = set(report.keys())
+    config_findings = scan_config_yaml(CONFIG_YAML_PATH, pool_providers)
+
+    # ── JSON output ───────────────────────────────────────
+    if args.json:
+        output = {
+            "auth_path": args.path,
+            "config_path": CONFIG_YAML_PATH,
+            "total_entries": total,
+            "poisoned_entries": poisoned,
+            "healthy_entries": total - poisoned,
+            "providers": report,
+            "config_findings": config_findings,
+        }
+        if args.fix and not args.dry_run:
+            n_removed, backup = fix_auth_json(args.path, dry_run=False)
+            output["fixed"] = True
+            output["entries_removed"] = n_removed
+            output["backup"] = backup
+        print(json.dumps(output, indent=2))
+        return
+
+    # ── Fix ───────────────────────────────────────────────
+    if args.fix:
+        if poisoned == 0:
+            e(f"{GREEN}✓{NC} No poisoned entries — nothing to fix.")
+            return
+
+        if args.dry_run:
+            e(f"{YELLOW}⚡ Dry run: {poisoned} entries would be removed{NC}")
+            e(f"{YELLOW}   Run with --fix (without --dry-run) to apply.{NC}")
+            print_report(report, total, poisoned, config_findings, args.verbose)
+            return
+
+        n_removed, backup = fix_auth_json(args.path, dry_run=False)
+        if n_removed > 0:
+            e(f"{GREEN}✓{NC} Removed {n_removed} poisoned entr{'y' if n_removed==1 else 'ies'}.")
+            if backup:
+                e(f"{DIM}  Backup saved to: {backup}{NC}")
+            e()
+            # Rescan after fix
+            report, total, poisoned = scan_auth_json(args.path)
+        else:
+            e(f"{YELLOW}⚠{NC} No entries were removed (unexpected).")
+            return
+
+    # ── Report ────────────────────────────────────────────
+    print_report(report, total, poisoned, config_findings, args.verbose)
+
+    if total == 0:
+        e(f"  {DIM}No credential pool found — nothing to check.{NC}")
+        e()
+
+
+if __name__ == "__main__":
+    main()
