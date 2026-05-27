@@ -30,6 +30,7 @@
 | Decentralized Agent Experience Reuse Network V5.1 | [Zenodo](https://zenodo.org/records/19840583) |
 | Digital Civilization Philosophy Trilogy | [Zenodo](https://zenodo.org/records/19841918) |
 | 从小脑发育论到认知架构革命 | [Zenodo](https://zenodo.org/records/19901823) |
+| Huntian Core Computing (HCC) | [Zenodo](https://zenodo.org/records/20417424) |
 
 ---
 
@@ -45,6 +46,12 @@
 |:-:|:-----|:----:|:-----|:-----|
 | 01 | 两级接力天地往返系统概念报告 | 📄 学术论文 | `04-天梯工程概念设计/01-两级接力天地往返系统概念报告/` | 赤道环+天钩两级接力，入轨成本<$50/kg |
 
+## ⚛️ 05 浑天核心计算
+
+| # | 名称 | 状态 | 路径 | 说明 |
+|:-:|:-----|:----:|:-----|:-----|
+| 01 | 浑天核心计算（HCC）论文 | ⏳ 论文已发布 | `05-浑天核心计算/` | 基于正二十面体模组化装配的宏观三维球形计算架构 |
+
 ---
 
-*最后更新: 2026-05-22 新增04大类*
+*最后更新: 2026-05-28 新增05大类(浑天核心计算)*
