@@ -4,6 +4,12 @@
 
 ---
 
+## 📄 00 论文合集
+
+| # | 名称 | 状态 | 路径 | 说明 |
+|:-:|:-----|:----:|:-----|:-----|
+| 01 | 记忆的困境·上下文腐烂 | 🟢 已发布 | `00-论文合集/01-The_Dilemma_of_Memory_Context_Rot_KV_Cache_LLM_EN/` | 揭露KV缓存"上下文腐烂"机制，提出符号激活体系（SAF） |
+
 ## 🏛️ 01 诺亚文明数字生命项目
 
 | # | 名称 | 状态 | 路径 | 说明 |
@@ -27,6 +33,7 @@
 
 | 论文 | DOI |
 |:-----|:-----|
+| The Dilemma of Memory: Context Rot in LLM KV Cache | [Zenodo](https://zenodo.org/records/20433184) |
 | Decentralized Agent Experience Reuse Network V5.1 | [Zenodo](https://zenodo.org/records/19840583) |
 | Digital Civilization Philosophy Trilogy | [Zenodo](https://zenodo.org/records/19841918) |
 | 从小脑发育论到认知架构革命 | [Zenodo](https://zenodo.org/records/19901823) |
@@ -61,4 +68,4 @@
 
 ---
 
-*最后更新: 2026-05-28 新增06大类(全要素清洁能源综合体)*
+*最后更新: 2026-05-29 新增00大类(论文合集·记忆的困境)*
