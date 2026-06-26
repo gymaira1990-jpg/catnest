@@ -1,320 +1,321 @@
 # Hermes AI 智能体：个人级搜索策略、工具与玩法实战
 
-> **副标题：** 从 CDP 清理到三层降级，零成本打造 AI Agent 专属搜索体系
+> **副标题：** Tavily + Crawl4AI + browser-use — 三层降级，零成本打造 AI Agent 专属搜索体系
 >
-> **作者：** G-CAT | **日期：** 2026-06-27 | **模型：** Hermes Agent + DeepSeek V4 Pro
+> **作者：** G-CAT | **日期：** 2026-06-27
 >
-> **摘要：** 记录一次完整的搜索基建重构：清除旧的 Edge CDP / Snap Chromium CDP 两套混乱方案，引入 browser-use、Crawl4AI、Tavily 三类工具，构建"三层降级"搜索+提取体系。全程在 Hermes Agent 上实战，包含完整命令、架构图和踩坑记录。
+> **适用环境：** Hermes Agent + WSL/Linux | **依赖：** Python ≥3.11
 
 ---
 
-## 一、起点：CDP 的混乱局面
+## 一、架构总览：三层降级
 
-我们的 WSL 环境里残留着两套 CDP（Chrome DevTools Protocol）方案：
+核心理念：策略 1 失败自动走策略 2，再失败走策略 3。没有单点依赖。
 
-- **Edge CDP**：通过 Windows 端口转发 `9226→9225`，连接 Windows Edge 浏览器
-- **Snap Chromium CDP**：通过 WSL 本地 Chromium 的远程调试端口
+```
+搜索链路:
+  Tavily API → Crawl4AI + 豆包 → browser-use
+  (最快)       (0成本无限量)       (真实浏览器, 最后手段)
 
-这两套方案共存导致：
-1. **端口冲突**：多个 CDP 端口监听、防火墙规则混乱
-2. **进程僵尸**：Chromium 进程退出后父进程未回收，积累 `<defunct>` 僵尸进程
-3. **可靠性差**：Edge 随 Windows 关机重启丢失连接，portproxy 需要 PowerShell 管理
-4. **无登录态**：每次启动都是新 profile，无法携带登录信息
+提取链路:
+  Tavily Extract → Crawl4AI Playwright → browser-use Agent
+  (最干净)         (Magic Mode反爬)      (AI视觉驱动)
+```
 
-最终的决策：**一刀切，全部清掉，重新设计。**
+### 三个工具定位
+
+| 工具 | 角色 | 核心能力 | 适合场景 |
+|------|------|---------|---------|
+| **Tavily** | 主力搜索 | AI 摘要 + 结构化结果 | 日常搜索、快速提取 |
+| **Crawl4AI** | 专业抓取 | 本地爬取、LLM 提炼、批量 | 复杂页面、大量抓取 |
+| **browser-use** | AI 操作 | 视觉识别、鼠标模拟、登录态 | 登录操作、多步骤任务 |
+
+---
+
+## 二、工具安装与配置
+
+### 2.1 Tavily API
+
+Tavily 提供 1,000 次/月的免费额度，搜索质量高、AI 摘要自动生成。
 
 ```bash
-# 删除旧 CDP 脚本
-rm ~/.hermes/scripts/cdp-tool.py
-rm ~/.hermes/scripts/cdp-playwright.py
-rm ~/.hermes/scripts/chromium-cdp.py
+# 注册获取 API Key: https://tavily.com
+# 配置到 Hermes
+echo "TAVILY_API_KEY=tvly-..." >> ~/.hermes/.env
 
-# 清理 Hermes 配置
-hermes config set web.backend ""
-hermes config set browser.cdp_url ""
+# 配置 Hermes 使用 Tavily
+hermes config set web.search_backend tavily
+hermes config set web.extract_backend tavily
 ```
 
----
+搜索效果：中英文均支持，自动生成 AI 摘要和结构化结果（标题、URL、摘要、评分）。
 
-## 二、新架构：三层降级 + 三个工具
+### 2.2 browser-use — AI 驱动浏览器操作
 
-### 2.1 整体策略
-
-本次重新设计的核心理念是"降级链"——策略 1 失败自动走策略 2，再失败走策略 3。
-
-**搜索链路：**
-
-```
-Tavily Search API → Crawl4AI + 豆包Mini → browser-use + Snap Chromium
-     (快速)            (0成本无限量)           (真实profile, 最后手段)
-```
-
-**提取链路：**
-
-```
-Tavily Extract API → Crawl4AI + Playwright → browser-use Agent + 豆包
-    (最干净)            (Magic Mode反爬)        (AI视觉推理)
-```
-
-### 2.2 三个工具各司其职
-
-| 工具 | 核心能力 | 浏览器 | 使用场景 |
-|------|---------|--------|---------|
-| **Tavily** | 搜+取一体 API | 无 | 日常主力搜索和提取 |
-| **Crawl4AI** | 本地专业爬虫 | Playwright Chromium | 批量抓取、LLM提炼 |
-| **browser-use** | AI 驱动的操作 | Snap Chromium 真实profile | 登录态操作、视觉识别、鼠标模拟 |
-
----
-
-## 三、工具配置细节
-
-### 3.1 browser-use — AI 驱动的浏览器自动化
-
-**安装：**
+browser-use 是一个开源的浏览器 Agent 框架（85K+ Stars），支持视觉识别、鼠标模拟、人类暂停。
 
 ```bash
-cd ~/.hermes/hermes-agent/venv/bin
-./pip install browser-use[core]
+# 安装
+pip install browser-use[core]
+
+# 确保系统已安装 Chromium
+# Linux: sudo apt install chromium-browser
+# 或 snap: snap install chromium
 ```
 
-**配置要点：**
-
-- 使用 Snap Chromium 149 作为浏览器引擎
-- 复用真实用户 profile（`~/snap/chromium/common/chromium/Default`），保留所有登录态
-- 通过 Privoxy（`:8118`）代理出墙访问 Google/Bing
-- Baidu 直连（Privoxy 自动分流）
-- 中文界面：`--lang=zh-CN` + `LANG=zh_CN.UTF-8` 环境变量
-- 禁用默认扩展下载（避免 GFW 下超时）：`enable_default_extensions=False`
-
-**关键坑：** `--disable-setuid-sandbox` 在 Chromium 149 中已废弃，删掉避免警告。
+**基础配置：**
 
 ```python
 from browser_use import Browser
 
 browser = Browser(
-    executable_path="/snap/bin/chromium",
-    headless=False,                              # 有头模式，Windows 可见
-    user_data_dir="~/snap/chromium/common/chromium",
-    profile_directory="Default",                 # 真实用户登录态
-    args=["--no-sandbox", "--lang=zh-CN"],       # 中文界面
-    enable_default_extensions=False,             # 不下载扩展
-    proxy={"server": "http://127.0.0.1:8118"},   # Privoxy 代理
-    env={"LANG": "zh_CN.UTF-8", "LC_ALL": "zh_CN.UTF-8"},
+    executable_path="/usr/bin/chromium-browser",  # Chromium 路径
+    headless=False,                                # 有头模式，方便观察
+    args=["--no-sandbox"],
+    proxy={"server": "http://127.0.0.1:8118"},    # 如需代理
 )
 ```
 
-**进程管理：** browser-use 关闭后 Chromium 子进程可能成为僵尸。我们写了专门的 `cleanup` 子命令：
-
-```bash
-./browser-search.py cleanup  # 清理所有残留进程 + 僵尸 + /tmp 临时文件
-```
-
-### 3.2 Crawl4AI — 专业内容提取引擎
-
-**安装踩坑：**
-
-Ubuntu 26.04 + Python 3.14 环境下 `pip install crawl4ai` 会遇到 `lxml` 构建失败。解决方案：
-
-```bash
-# 1. 先装系统依赖
-sudo apt install -y libxml2-dev libxslt-dev
-
-# 2. lxml 用预编译包
-./pip install lxml --only-binary :all:
-
-# 3. 再装 crawl4ai 本体
-./pip install crawl4ai
-```
-
-**Playwright 浏览器安装：**
-
-Playwright 官方不支持 Ubuntu 26.04 安装 Chromium，通过 npm 的 Playwright 下载：
-
-```bash
-# npm 版不受 OS 检测限制
-npx playwright install chromium
-# 下载的浏览器在 ~/.cache/ms-playwright/chromium-1228/
-
-# 创建 v1223→v1228 软链接（Crawl4AI 期望 v1223）
-ln -sf ~/.cache/ms-playwright/chromium-1228 ~/.cache/ms-playwright/chromium-1223
-```
-
-**LLM 集成：** Crawl4AI 通过 LiteLLM 支持任意模型。我们配置了豆包 Mini 作为提取模型：
+**使用真实浏览器 profile（保留登录态）：**
 
 ```python
-from crawl4ai import LLMConfig, CrawlerRunConfig
+browser = Browser(
+    user_data_dir="~/.config/chromium",           # 你的 Chromium profile 路径
+    profile_directory="Default",
+    headless=False,
+)
 
-# 豆包 Mini — 最便宜、支持 structured output
+# 启动后即可使用已登录的 Google/GitHub 等
+await browser.start()
+await browser.navigate_to("https://github.com")
+```
+
+**Agent 模式（AI 驱动操作）：**
+
+```python
+from browser_use import Agent, Browser
+from browser_use.llm.openai.chat import ChatOpenAI
+
+llm = ChatOpenAI(
+    model="your-model",
+    api_key="your-api-key",
+    base_url="https://api.openai.com/v1",
+)
+
+agent = Agent(
+    task="打开 GitHub 搜索 browser-use 项目，查看 Star 数",
+    llm=llm,
+    browser=browser,
+    use_vision=True,  # 启用视觉识别
+)
+await agent.run()
+```
+
+### 2.3 Crawl4AI — 专业内容抓取
+
+Crawl4AI 是一个开源的 LLM 友好型爬虫，输出干净 Markdown，支持 Magic Mode 反爬。
+
+```bash
+# 安装
+pip install crawl4ai
+
+# 安装系统依赖
+sudo apt install -y libxml2-dev libxslt-dev
+
+# 安装 Playwright 浏览器
+playwright install chromium
+```
+
+**基础使用：**
+
+```python
+from crawl4ai import AsyncWebCrawler, CrawlerRunConfig
+
+async with AsyncWebCrawler() as crawler:
+    result = await crawler.arun(
+        url="https://example.com/article",
+        config=CrawlerRunConfig(
+            magic=True,           # 反爬模式
+            word_count_threshold=15,
+            remove_overlay_elements=True,
+        )
+    )
+    print(result.markdown)  # 干净的 Markdown 格式
+```
+
+**配合 LLM 智能提取：**
+
+```python
+from crawl4ai import LLMConfig
+from crawl4ai.extraction_strategy import LLMExtractionStrategy
+
+llm_strategy = LLMExtractionStrategy(
+    llm_config=LLMConfig(
+        provider="openai/your-model",
+        api_token="your-api-key",
+    ),
+    instruction="提取正文内容，去掉导航、广告、评论",
+    chunk_token_threshold=2000,
+)
+
 config = CrawlerRunConfig(
-    magic=True,                    # 反爬模式
-    extraction_strategy=...        # LLM 提取策略
+    extraction_strategy=llm_strategy,
+    magic=True,
 )
 ```
 
-**豆包 Mini vs Lite 对比：**
-- 同一个 "say hello in JSON" 请求
-- Lite：182 tokens
-- Mini：134 tokens
-- **Mini 省 26% token**
+**批量并行抓取：**
 
-### 3.3 Tavily — 主力搜索引擎
-
-Tavily 有 1,000 次/月的免费额度。在我们的测试中，搜中文和英文都有 AI 摘要：
-
-```
-🔍 搜索: Hermes agent nous research
-   Tavily API...
-  📝 AI摘要: Hermes Agent is an open-source AI agent developed by Nous Research...
-  ✅ Tavily API 搜索成功 (5条)
-  1. Hermes Agent — Open-Source AI Agent with Persistent Memory
-     https://hermes-agent.org
+```python
+urls = ["https://site1.com", "https://site2.com", "https://site3.com"]
+async with AsyncWebCrawler(max_pages=3) as crawler:
+    results = await crawler.arun_many(urls, config=config)
+    for r in results:
+        print(len(r.markdown))
 ```
 
-配置在 `~/.hermes/.env`：
+### 2.4 豆包模型配置（可选，降低费用）
 
-```bash
-TAVILY_API_KEY=tvly-dev-xxxx
+豆包（火山引擎）支持 OpenAI 兼容 API，且 `doubao-seed-2-0-mini` 极其便宜：
+
+```python
+from browser_use.llm.openai.chat import ChatOpenAI
+
+llm = ChatOpenAI(
+    model="doubao-seed-2-0-mini-260215",
+    api_key="your-ark-api-key",
+    base_url="https://ark.cn-beijing.volces.com/api/v3",
+)
+```
+
+豆包 Mini 比 Lite 省约 26% token，支持 structured output（browser-use Agent 运行正常）。
+
+---
+
+## 三、代理配置（可选）
+
+如果你的环境需要代理访问 Google 等网站，推荐使用 Privoxy 作为 HTTP 代理层：
+
+```
+浏览器 → Privoxy (:8118) → SOCKS5 隧道 → 境外服务器
+                           ↓
+                  国内网站直连 (自动分流)
+```
+
+Privoxy 配置示例（`/etc/privoxy/config`）：
+
+```
+forward-socks5 / 127.0.0.1:1080 .   # SOCKS5 隧道
+# Privoxy 默认监听 127.0.0.1:8118
+```
+
+浏览器配置代理：
+
+```python
+proxy={"server": "http://127.0.0.1:8118"}
 ```
 
 ---
 
-## 四、实战脚本：browser-search.py
+## 四、集成脚本
 
-整个工具栈封装在一个 Python 脚本中：
+将以上三个工具整合为一个脚本，实现自动降级调用。
 
-```
+```bash
 ~/.hermes/scripts/browser-search.py
 ```
 
-### 4.1 搜索模式
+**搜索模式：**
 
 ```bash
 # 自动模式（推荐，Tavily 主力）
 python3 browser-search.py search "大语言模型 2026" --yes
 
-# 指定百度
-python3 browser-search.py search "AI Agent框架" --engine baidu --yes
-
-# 指定 Google
-python3 browser-search.py search "browser-use framework" --engine google --yes
+# 指定搜索引擎
+python3 browser-search.py search "AI Agent" --engine google --yes
+python3 browser-search.py search "深度学习" --engine baidu --yes
 ```
 
-### 4.2 提取模式
+**提取模式：**
 
 ```bash
-# 自动选择最优提取策略（Tavily → Crawl4AI → browser-use Agent）
-python3 browser-search.py extract "https://...." --yes
+# 自动选择最优策略（Tavily → Crawl4AI → browser-use Agent）
+python3 browser-search.py extract "https://example.com/article" --yes
 ```
 
-实测：Wikipedia 文章提取出 **202,267 字符**，GitHub 页面 **18,042 字符**。
-
-### 4.3 Agent 模式
-
-browser-use + 豆包 Mini 驱动的智能操作。支持：
-- 视觉识别（能"看"页面）
-- 鼠标模拟（点击、输入、滚动）
-- 人类暂停（遇到 CAPTCHA 可停下来让你操作）
+**Agent 模式：**
 
 ```bash
-python3 browser-search.py agent "在知乎搜索 AI Agent 框架，对比前三个的开源 Star 数"
+# AI 驱动的复杂浏览器操作
+python3 browser-search.py agent "在知乎搜索 AI Agent 框架并对比"
 ```
+
+**进程清理：**
+
+```bash
+python3 browser-search.py cleanup
+```
+
+关键技术点：
+- 三层降级由策略 1→2→3 顺序尝试，首个成功即返回
+- `--yes` 参数跳过交互确认，适合自动化场景
+- 搜索模式输出结构化结果（标题 + URL + 摘要）
+- 提取模式优先用 Tavily API（最快最干净），失败才走浏览器
 
 ---
 
-## 五、代理与网络配置
+## 五、接入 Hermes
 
-```
-                  ┌─────────────────────┐
-                  │    WSL (Python)     │
-                  │  browser-use       │
-                  │  Crawl4AI          │
-                  │  Tavily            │
-                  └────────┬───────────┘
-                           │
-                    ┌──────▼──────┐
-                    │  Privoxy    │  :8118 HTTP 代理
-                    │  本地服务    │
-                    └──────┬──────┘
-                           │
-              ┌────────────┼────────────┐
-              ▼            ▼            ▼
-          ┌──────┐    ┌──────┐    ┌──────┐
-          │Baidu │    │Google│    │Bing  │
-          │ 直连 │    │ 隧道 │    │ 隧道 │
-          └──────┘    └──────┘    └──────┘
-              │            │            │
-              └────────────┼────────────┘
-                           │
-                    ┌──────▼──────┐
-                    │  SOCKS5    │  :1081 GZ 隧道
-                    │  autossh   │
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │  GZ 服务器   │
-                    └─────────────┘
-```
+创建技能文件 `~/.hermes/skills/devops/gcat-web-search/SKILL.md`，Hermes 即可根据关键词自动调用。
 
-Privoxy 自动分流：百度直连，Google/Bing 走 SOCKS5 隧道。浏览器只需配置 `--proxy-server=http://127.0.0.1:8118` 即可。
+技能触发条件：当用户说"搜索""提取""查一下"时，Hermes 会自动选择对应模式。
+
+搜索：Hermes 直接调用 `web_search` 工具（Tavily 后端），快速返回。
+提取：调用 `browser-search.py extract`。
+复杂操作：调用 `browser-search.py agent`。
 
 ---
 
-## 六、踩坑记录
+## 六、踩坑与建议
 
-### 坑1：browser-use Agent 与 DeepSeek 不兼容
+**1. 浏览器版本匹配**
 
+确保 Playwright 下载的 Chromium 版本与 Crawl4AI 期望的版本一致。如不一致，创建软链接：
+
+```bash
+ln -sf ~/.cache/ms-playwright/chromium-1228 ~/.cache/ms-playwright/chromium-1223
 ```
-Error: 'This response_format type is unavailable now'
+
+**2. 代理超时**
+
+Crawl4AI 默认会下载浏览器扩展（如 uBlock Origin），GFW 环境下可能超时。关闭它：
+
+```python
+BrowserConfig(enable_default_extensions=False)
 ```
 
-根因：browser-use 内部调用 `response_format: json_object` 参数，DeepSeek 不支持。
+**3. Agent 与 LLM 兼容性**
 
-**解决：** 换用豆包，豆包支持 `json_object` 格式。
+browser-use Agent 内部使用 `response_format: json_object`，确保所选 LLM 支持该参数。如 DeepSeek 不支持，可用 OpenAI/豆包/Anthropic 替代。
 
-### 坑2：Snap Chromium 与 Playwright 浏览器版本不匹配
+**4. 进程残留**
 
-Snap Chromium 149 不识别 Playwright 的特殊 flags（如 `--disable-field-trial-config`），导致直接配合失败。
-
-**解决：** 用 npm Playwright 下载专属浏览器（v1228），Snap Chromium 专供 browser-use 使用，Playwright Chromium 专供 Crawl4AI 使用。
-
-### 坑3：Crawl4AI 加载默认扩展卡死
-
-Crawl4AI 默认 `enable_default_extensions=True`，会尝试下载 uBlock Origin，在 GFW 下超时。
-
-**解决：** `BrowserConfig(enable_default_extensions=False)`
+浏览器操作后检查残留进程。browser-use Agent 退出时应确保 `browser.close()` 被调用。
 
 ---
 
-## 七、接入 Hermes
+## 七、总结
 
-创建了 `gcat-web-search` 技能，Hermes 可以直接调用：
+用三个开源工具覆盖所有搜索需求：
 
-```
-hermes skills list | grep gcat
-# → gcat-web-search (devops, enabled)
-```
+| 层级 | 工具 | 成本 |
+|------|------|------|
+| 搜 | Tavily | 免费 1K 次/月 |
+| 抓 | Crawl4AI | 0 元（自部署） |
+| 控 | browser-use | 豆包 token（极便宜） |
 
-今后在 Hermes 中说"搜一下 AI 最新动态"，自动走 Tavily → Crawl4AI → browser-use 三层降级链。
-
----
-
-## 八、总结
-
-**重构前：**
-- 2 套 CDP 方案互相冲突
-- browser-use Agent 无法用（DeepSeek 不兼容）
-- 内容提取全靠手写 JS
-
-**重构后：**
-- 3 个工具、3 层降级
-- 搜索：Tavily（AI 摘要 + 结构化结果）
-- 提取：Crawl4AI（Magic Mode + LLM 提炼）
-- 操作：browser-use（豆包驱动 + 真实 profile）
-- 进程管理、代理链、中文界面全部齐备
-- 接入 Hermes 技能体系，自然语言触发
-
-**预算：** 0 元/月（Tavily 免费 1K 次 + Crawl4AI 自部署 + 豆包 token 极便宜）
+全文代码可直接复制运行。欢迎在 GitHub 上交流改进。
 
 ---
 
-> **交流与反馈：** 本文基于 G-CAT 的个人基础设施编写。欢迎在 GitHub 上提出改进建议。
+> **作者：** G-CAT · **GitHub:** [gymaira1990-jpg/catnest](https://github.com/gymaira1990-jpg/catnest)
