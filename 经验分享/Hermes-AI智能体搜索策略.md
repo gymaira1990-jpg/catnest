@@ -1,6 +1,6 @@
 # Hermes AI 智能体：个人级搜索策略、工具与玩法实战
 
-> **副标题：** Tavily + Crawl4AI + browser-use — 三层降级，零成本打造 AI Agent 专属搜索体系
+> **副标题：** Tavily 主搜 + Crawl4AI 后援 + browser-use 操控浏览器 — 零成本 AI Agent 搜索工具链
 >
 > **作者：** G-CAT | **日期：** 2026-06-27
 >
@@ -8,30 +8,28 @@
 
 ---
 
-## 一、为什么需要自己的搜索体系？
+## 一、为什么折腾这套工具链？
 
-如果你在用 Hermes Agent 或类似的 AI 智能体，你可能遇到过这些问题：
+用 Hermes Agent 一段时间后，搜索是个绕不开的痛点：
 
 - `web_search` 返回的结果质量参差不齐，中文内容尤其灾难
 - 需要抓取网页内容时，工具返回的是截断的、带广告和导航的 HTML 垃圾
 - 被反爬虫机制拦截，拿不到真正的正文
 - 每天要手动做大量重复的浏览器操作（查资料、填表、翻页、提取），浪费时间
 
-这套方案的核心思路：**Tavily 主搜，Crawl4AI 后援，browser-use 负责浏览器自动化操作。**
+这套方案的思路：**Tavily 主搜，Crawl4AI 后援，browser-use 负责浏览器自动化操作。**
 
-**「为什么不用 Google Custom Search API？」** — 100 次/天免费额度，用完就收费，且结果不带 AI 摘要。对于每天几十次的 Agent 搜索需求，一周就超了。
+**「为什么不用 Google Custom Search API？」** — 100 次/天免费额度，用完就收费，且结果不带 AI 摘要。Agent 一天搜几十次，一周就超了。
 
-**「为什么不用 DuckDuckGo？」** — 中文搜索结果质量极差，几乎不可用。英文尚可但远不如 Tavily 的结构化输出。
+**「为什么不用 DuckDuckGo？」** — 中文搜索质量惨不忍睹。英文尚可但远不如 Tavily 的结构化输出。
 
-**「为什么不只用 Playwright？」** — Playwright 是浏览器自动化框架，不是 AI 搜索工具。它提供的是 API 级控制（点击元素、等待加载），但不知道"该搜什么""该点哪里"。你需要一个 **AI 大脑**来决策。
+**「为什么不只用 Playwright？」** — Playwright 是浏览器自动化框架，不是搜索工具。它能控制浏览器但不知道"该搜什么"。需要一个 **AI 大脑**来做决策。
 
-这套方案用三个工具覆盖全场景，总成本：**一台能跑 Python 的机器 + 免费的 Tavily API（1,000次/月）+ 豆包 token（极便宜）**。
+成本核算：**一台能跑 Python 的机器 + 免费的 Tavily API（1,000次/月）+ 豆包 token（极便宜）**。
 
 ---
 
-## 二、架构设计：三层降级策略
-
-### 核心设计理念
+## 二、架构总览
 
 ```
 搜索链路:
@@ -43,7 +41,7 @@
   (AI驱动浏览器, 解放手动操作)
 ```
 
-**关键原则：不依赖任何单一工具。** 每一层失败自动降级到下一层。首个成功的结果即刻返回，不会因为某个 API 挂了就整体失败。
+搜索和抓取各有一个主力+一个后援。Tavily 挂了自动走 Crawl4AI，反过来不降级（Tavily 更快更便宜所以是首选）。browser-use 是独立功能线——当你需要登录、填表、批量操作时才用。
 
 ### 三个工具定位
 
@@ -88,13 +86,14 @@ Tavily 是 **专为 AI Agent 设计的搜索引擎**。它不只是返回链接�
 ### 安装配置
 
 ```bash
-# 1. 注册获取 API Key：https://tavily.com
-#    免费额度 1,000 次/月，足够个人 Agent 使用
+# 1. 打开 https://tavily.com 注册账号（用 GitHub/Google 直接登）
+#    登录后到 Dashboard → API Keys → 复制密钥（tvly- 开头）
+#    免费额度 1,000 次/月，个人 Agent 完全够用
 
-# 2. 配置到 Hermes
+# 2. 把密钥写到 Hermes 环境变量
 echo "TAVILY_API_KEY=tvly-你的密钥" >> ~/.hermes/.env
 
-# 3. 告诉 Hermes 使用 Tavily
+# 3. 切 Hermes 的搜索后端
 hermes config set web.search_backend tavily
 hermes config set web.extract_backend tavily
 ```
@@ -119,11 +118,11 @@ hermes config set web.extract_backend tavily
 }
 ```
 
-关键差异：`content` 字段是**经过 AI 提炼的摘要**，不是网页的前 200 个字符。这意味着 Agent 不需要打开网页就能判断这篇文章是否相关。
+关键差异：`content` 字段是**AI 提炼的摘要**，不是网页前 200 个字符。Agent 不用打开网页就能判断相关性。
 
 ### 提取模式
 
-Tavily Extract 是把整个网页下载下来，再用 AI 提取纯净正文（去广告、去导航、去评论区）。返回的是干净 Markdown。
+Tavily Extract 把网页下载下来，AI 提取正文（去广告、去导航、去评论区），输出 Markdown。
 
 ```bash
 # Hermes 里直接调用
@@ -318,6 +317,11 @@ browser-use Agent 内部使用 `response_format: json_object` 模式（要求 LL
 
 **推荐方案：** 豆包 `doubao-seed-2-0-mini`。单个简单任务约消耗 5,000-15,000 token（¥0.002-0.007），复杂任务 20,000-50,000 token（¥0.01-0.025）。
 
+**怎么拿豆包 API Key：**
+1. 打开 [火山引擎 ARK](https://console.volcengine.com/ark) 注册/登录
+2. 左侧菜单 → API Key 管理 → 创建 API Key
+3. 复制 key 写到 Hermes 环境变量：`echo "ARK_API_KEY=你的key" >> ~/.hermes/.env`
+
 ---
 
 ## 六、代理配置：让工具在墙内正常工作
@@ -373,73 +377,183 @@ curl -s --max-time 5 https://www.google.com -o /dev/null -w "%{http_code}"
 
 ---
 
-## 七、集成脚本：一条命令搞定搜索
+## 七、集成脚本：browser-search.py 完整代码
 
-把三个工具封装到 `~/.hermes/scripts/browser-search.py`，Hermes 通过 skill 自动调用。
+把三个工具封到一个脚本，放在 `~/.hermes/scripts/browser-search.py`。
 
-### 搜索模式（自动降级）
+### 脚本核心结构
 
-```bash
-# 日常使用（Tavily 主力，最快最便宜）
-python3 browser-search.py search "大语言模型 2026 最新进展" --yes
+```python
+#!/usr/bin/env python3
+"""G-CAT AI搜索工具 — 三层工具链统一入口"""
+import os, sys, json, asyncio, argparse
+import requests
 
-# 指定引擎
-python3 browser-search.py search "AI Agent 框架" --engine google --yes
-python3 browser-search.py search "深度学习" --engine baidu --yes
+# ── 配置 ──
+TAVILY_KEY = os.environ.get("TAVILY_API_KEY", "")
+DOUBAO_KEY = os.environ.get("ARK_API_KEY", "")
+DOUBAO_BASE = "https://ark.cn-beijing.volces.com/api/v3"
 
-# --yes：跳过交互确认，适合自动化/Agent 调用
+# ── 策略1：Tavily 搜索 ──
+def tavily_search(query: str, max_results: int = 5) -> dict:
+    """主力搜索，速度快、带AI摘要"""
+    resp = requests.post(
+        "https://api.tavily.com/search",
+        json={"api_key": TAVILY_KEY, "query": query, "max_results": max_results}
+    )
+    return resp.json()
+
+# ── 策略1b：Tavily 提取 ──
+def tavily_extract(url: str) -> dict:
+    """快速提取网页正文"""
+    resp = requests.post(
+        "https://api.tavily.com/extract",
+        json={"api_key": TAVILY_KEY, "urls": [url]}
+    )
+    return resp.json()
+
+# ── 策略2：Crawl4AI 抓取 ──
+async def crawl4ai_extract(url: str) -> str:
+    """后援抓取引擎 — JS渲染 + 反爬"""
+    from crawl4ai import AsyncWebCrawler, CrawlerRunConfig
+
+    async with AsyncWebCrawler() as crawler:
+        result = await crawler.arun(
+            url=url,
+            config=CrawlerRunConfig(
+                magic=True,
+                remove_overlay_elements=True,
+                word_count_threshold=15,
+            )
+        )
+        return result.markdown
+
+# ── 策略3：browser-use 浏览器操控 ──
+async def browser_agent(task: str):
+    """浏览器自动化 — 登录、填表、多步骤操作"""
+    from browser_use import Agent, Browser
+    from browser_use.llm.openai.chat import ChatOpenAI
+
+    browser = Browser(
+        headless=False,
+        args=["--no-sandbox"],
+        proxy={"server": "http://127.0.0.1:8118"},
+    )
+    llm = ChatOpenAI(
+        model="doubao-seed-2-0-mini-260215",
+        api_key=DOUBAO_KEY,
+        base_url=DOUBAO_BASE,
+    )
+    agent = Agent(task=task, llm=llm, browser=browser, use_vision=True)
+    result = await agent.run()
+    await browser.close()
+    return result
+
+# ── 主入口 ──
+def main():
+    parser = argparse.ArgumentParser()
+    sub = parser.add_subparsers(dest="mode")
+
+    p = sub.add_parser("search")
+    p.add_argument("query")
+    p.add_argument("--engine", default="auto")
+    p.add_argument("--yes", action="store_true")
+
+    p = sub.add_parser("extract")
+    p.add_argument("url")
+    p.add_argument("--yes", action="store_true")
+
+    p = sub.add_parser("agent")
+    p.add_argument("task")
+
+    p = sub.add_parser("cleanup")
+
+    args = parser.parse_args()
+
+    if args.mode == "search":
+        # 主力 Tavily，失败不降级（搜索链路Tavily为主）
+        result = tavily_search(args.query)
+        for r in result.get("results", []):
+            print(f"📌 {r['title']}")
+            print(f"   {r['url']}")
+            print(f"   {r.get('content', '')[:120]}")
+            print()
+    elif args.mode == "extract":
+        # Tavily Extract → 失败走 Crawl4AI
+        try:
+            r = tavily_extract(args.url)
+            print(r["results"][0].get("raw_content", r["results"][0].get("content")))
+        except:
+            content = asyncio.run(crawl4ai_extract(args.url))
+            print(content)
+    elif args.mode == "agent":
+        result = asyncio.run(browser_agent(args.task))
+        print(result)
+    elif args.mode == "cleanup":
+        os.system("pkill -f chromium-browser 2>/dev/null; pkill -f ms-playwright 2>/dev/null")
+        print("已清理 Chromium 进程")
+
+if __name__ == "__main__":
+    main()
 ```
 
-内部逻辑：Tavily API 搜索 → 成功则返回 → 失败则走 Crawl4AI → 失败则走 browser-use。
-
-### 提取模式（自动降级）
+### 使用方式
 
 ```bash
-# 自动选择最优策略
-python3 browser-search.py extract "https://example.com/deep-article" --yes
+# 搜索（Tavily 主力）
+python3 ~/.hermes/scripts/browser-search.py search "大语言模型 2026 最新进展" --yes
 
-# 策略：Tavily Extract → Crawl4AI Magic → browser-use Agent
+# 提取（Tavily → 失败走 Crawl4AI）
+python3 ~/.hermes/scripts/browser-search.py extract "https://example.com/article" --yes
+
+# 浏览器操控（手动触发，不参与降级）
+python3 ~/.hermes/scripts/browser-search.py agent "登录 GitHub 找到她的简历并截图"
+
+# 清理残留
+python3 ~/.hermes/scripts/browser-search.py cleanup
 ```
 
-### Agent 模式（手动触发，不走降级）
-
-```bash
-# AI 驱动的复杂浏览器操作
-python3 browser-search.py agent "在知乎搜索 '大模型推理优化'，打开前 3 篇文章，提取每篇的核心观点"
-```
-
-### 进程清理
-
-```bash
-# 杀掉残留的 Chromium 进程
-python3 browser-search.py cleanup
-```
-
-**为什么需要这个？** 浏览器操作异常退出时可能留下僵尸 Chromium 进程，占用内存和端口。建议定时清理或设为 cron。
+`--yes` 跳过交互确认，适合 Agent 自动化调用。提取模式内部只做搜索链路的降级（Tavily Extract → Crawl4AI），browser-use 是独立触发的手动武器。
 
 ---
 
 ## 八、接入 Hermes Agent
 
-创建技能文件让 Hermes 自动识别搜索意图：
+创建技能文件 `~/.hermes/skills/devops/gcat-web-search/SKILL.md`：
 
-```bash
-# 文件路径：~/.hermes/skills/devops/gcat-web-search/SKILL.md
+```yaml
+---
+name: gcat-web-search
+description: G-CAT 定制搜索+提取工具。Tavily/Crawl4AI/browser-use三层搜索+三层提取。
+version: 1.0
+triggers:
+  - 搜索
+  - 查一下
+  - 搜一下
+  - 提取
+  - 抓取
+  - 帮我搜
+---
+
+# G-CAT Web Search
+
+搜索链路: Tavily API（主力）→ Crawl4AI（后援抓取）
+浏览器操控: browser-use Agent（独立触发）
+
+## 搜索
+`web_search` 走 Tavily，自动返回结构化结果+AI摘要。
+
+## 提取
+`web_extract` 先走 Tavily Extract → 失败走 Crawl4AI Magic Mode。
+
+## 复杂浏览器操作
+业务说 "登录XX网站/填表/批量操作" → 调 `browser-search.py agent <task>`
+
+## 清理
+`browser-search.py cleanup` 清理残留 Chromium 进程（建议加 cron 每4h跑一次）。
 ```
 
-技能内容（简化版）：
-
-```markdown
-# Trigger keywords
-搜索 | 查一下 | 搜一下 | 提取 | 抓取 | 帮我搜
-
-# Action
-web_search → Tavily (默认)
-web_extract → Tavily Extract → Crawl4AI → browser-use (自动降级)
-复杂操作 → browser-search.py agent
-```
-
-配置完成后，当你说"帮我搜一下最新的 LLM 架构论文"，Hermes 自动调用 `web_search`（走 Tavily）；当你说"提取这篇文章的内容"，自动走提取链路。
+配置完成后，当你说"帮我搜最新的 LLM 论文"，Hermes 自动走 Tavily；说"提取这篇文章的内容"，自动走提取链路；说"登录 GitHub 帮她找简历并截图"，走 browser-use。
 
 ---
 
@@ -551,22 +665,22 @@ config = CrawlerRunConfig(
 
 ## 十、总结
 
-三个工具覆盖了 AI Agent 需要的所有搜索场景，总成本几乎为零：
+三个工具覆盖了 AI Agent 需要的所有场景，总成本几乎为零：
 
-| 层级 | 工具 | 场景 | 成本 | 需要代理？ |
-|------|------|------|------|-----------|
-| 搜 | Tavily | 日常搜索 + 快速提取 | 免费 1K次/月 | 否（直连可用） |
-| 抓 | Crawl4AI | 后援抓取 + JS渲染 + 反爬 | 0 元（自部署） | 看目标网站 |
-| 控 | browser-use | 浏览器自动化 + 登录操作 + 多步骤 | 豆包 token（约 ¥0.01/任务） | 看目标网站 |
+| 哪用 | 工具 | 具体场景 | 成本 | 要代理？ |
+|------|------|----------|------|---------|
+| 搜 | Tavily | 日常搜索 + 快速提取 | 免费 1K次/月 | 不用（直连） |
+| 抓 | Crawl4AI | 后援抓取 + JS渲染 + 反爬 | 0 元（自部署） | 看目标站 |
+| 控 | browser-use | 浏览器自动化 + 登录 + 填表 | 豆包 ¥0.01/任务 | 看目标站 |
 
-**核心原则：**
-1. 三层降级，无单点依赖
-2. Tavily 是主力，大部分任务不需要后两层
-3. 代理要提前验证，不要假设网络通
-4. browser-use 的 LLM 不要选 DeepSeek（不支持 response_format）
-5. 任务结束后记得 `browser.close()`
+几点经验：
+- 搜索链路里 Tavily 是绝对主力，大部分场景根本用不到后援
+- browser-use 是独立武器，不要把它塞进搜索降级链里
+- 外部操作前先跑 `curl -x http://127.0.0.1:8118` 确认代理活着——比事后排查省一百倍时间
+- browser-use 别用 DeepSeek 当大脑——会报 400
+- 任务结束记得 `browser.close()`，不然 Chromium 僵尸进程吃内存
 
-全文代码可直接复制运行。欢迎在 [GitHub](https://github.com/gymaira1990-jpg/catnest) 上交流改进。
+全文代码可以直接复制跑。有什么问题或者改进建议，去 [GitHub](https://github.com/gymaira1990-jpg/catnest) 提。
 
 ---
 
