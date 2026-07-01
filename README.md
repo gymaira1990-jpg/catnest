@@ -37,7 +37,7 @@ catnest/
 │   └── 论文/                        ← 🟢 最新研究
 ├── 08-经验分享/                      📝 大类·实用攻略
 │   └── 01-API公益中转NewAPI安全共享指南/ ← 🟢 已发布
-├── MANIFEST/                        ← 项目索引
+├── MANIFEST/
 ├── AI-DECLARATION.md                ← AI自主演化声明
 ├── LICENSE                          ← MIT
 └── README.md                        ← 你在这里
