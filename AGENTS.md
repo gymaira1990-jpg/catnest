@@ -17,7 +17,7 @@ CatNest（猫窝）是 G-CAT 数字文明研究的唯一容器：理论、项目
 1. **隐私审计**：push 前扫描本地用户名路径 / 真实 IP / API Key / token 模式，0 命中才可 push
 2. **仓库治理门禁**：LICENSE / .github 五件套 / AGENTS.md / CHANGELOG.md 齐全
 3. **版本一致**：README badge = VERSION = CHANGELOG 最新版本号一致
-4. **双 remote 同步**：GitHub (origin) + ATomGIT (atomgit) 都要 push
+4. **只推 GitHub**：唯一 remote = origin（gymaira1990-jpg）。ATomGIT 已废弃 (2026-08-03)，不再维护镜像
 5. 用经典 PAT（ghp_）push，细粒度 PAT 仅 API 读操作
 
 ## 提交规范
